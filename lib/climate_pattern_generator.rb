@@ -1,6 +1,2 @@
-require "climate_pattern_generator/version"
-
-module ClimatePatternGenerator
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require_relative "./climate_pattern_generator/version"
+require_relative './climate_pattern_generator'

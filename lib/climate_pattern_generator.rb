@@ -1,2 +1,2 @@
 require_relative "./climate_pattern_generator/version"
-require_relative './climate_pattern_generator'
+require_relative './climate_pattern_generator/cli'

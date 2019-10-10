@@ -1,5 +1,5 @@
+require 'open-uri'
 require 'nokogiri'
-# require 'open_uri'
 require 'pry'
 
 require_relative "./climate_pattern_generator/version"

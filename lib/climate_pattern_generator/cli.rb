@@ -1,11 +1,10 @@
 class ClimatePatternGenerator::CLI
-  attr_accessor :date, :temperature, :color, :URL
+  attr_accessor :date, :temperature, :color, :url
 
   def call
     puts "Welcome to the Climate Pattern Generator"
     options
     menu_loop
-    # list_data
     goodbye
   end
 
@@ -20,29 +19,21 @@ class ClimatePatternGenerator::CLI
 
   def menu_loop
     input = nil
-
     while input != "exit"
       puts "Type exit or back at any time."
       input = gets.strip
-      case input
 
+      case input
       when "1"
         puts "Choose a year between 1900 and 2018"
           input = gets.strip
         #add logic for choosing year
         list_data
         puts "================ see data above ========================"
-
-
-
       when "2"
         puts "Please come back soon - this option is not yet available"
-
-
       when "3"
         puts "Please come back soon - this option is not yet available"
-
-
       else
         options
       end
@@ -54,11 +45,6 @@ class ClimatePatternGenerator::CLI
   end
 
   def list_data
-
-
     @climate_pattern = ClimatePatternGenerator::Dataset.print
   end
-
-
-
 end

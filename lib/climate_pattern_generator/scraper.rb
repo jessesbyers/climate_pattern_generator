@@ -1,3 +1,8 @@
+require 'open-uri'
+require 'nokogiri'
+require 'pry'
+
+
 class ClimatePatternGenerator::Dataset
   attr_accessor :date, :temperature, :color, :url
 
@@ -20,5 +25,21 @@ class ClimatePatternGenerator::Dataset
     # [day1, day2, day3..day365]
 
   end
+
+  def get_temperature_data
+    location = "us/vt/st.-albans"
+    year = "2019"
+    month = "8"
+
+    html = open("https://www.wunderground.com/history/monthly/#{location}/KPBG/date/#{year}-#{month}")
+    doc = Nokogiri::HTML(html)
+    data_hash = {}
+
+
+
+
+  end
+
+
 
 end

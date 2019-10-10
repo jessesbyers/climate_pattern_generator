@@ -12,7 +12,7 @@ class ClimatePatternGenerator::CLI
   def options
     puts "What would you like to do?"
     puts "1. Create a pattern by year"
-    # ## will build for option 1, then add more features later
+    # ## will build for option 1, then add more later
     # puts "2. Create a pattern by location"
     # puts "3. Create a pattern by year and location"
     puts "Type a number to make your choice."

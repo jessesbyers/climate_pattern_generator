@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
 require './lib/climate_pattern_generator'
+# require "bundler/setup"
+# require "climate_pattern_generator"
 
 ClimatePatternGenerator::CLI.new.call

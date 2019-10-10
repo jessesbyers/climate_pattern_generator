@@ -54,14 +54,9 @@ class ClimatePatternGenerator::CLI
   end
 
   def list_data
-    # coded with fake data to start, will replace later
-    date = "fake date"
-    temperature = "fake temperature"
-    color = "fake color"
-    url = "fake url"
-    puts "Complete?   Date      Temperature      Color       URL"
-    puts "_________   #{date}   #{temperature}   #{color}    #{url}"
-    puts "_________   #{date}   #{temperature}   #{color}    #{url}"
+
+
+    @climate_pattern = ClimatePatternGenerator::Dataset.print
   end
 
 

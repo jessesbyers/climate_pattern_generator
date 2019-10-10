@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["'Jesse Byers'"]
   spec.email         = ["'jesse.s.byers@gmail.com'"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "https://github.com/jessesbyers/climate_pattern_generator.git"
+  spec.summary       = "Allows users to generate a pattern for visualizing climate data"
+  spec.description   = "Users input a year and location, and the gem automatically prints out a pattern in order to create a fiber arts data visualization."
+  spec.homepage      = "https://github.com/jessesbyers/climate_pattern_generator"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -41,6 +41,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "pry"
   spec.add_dependency "nokogiri"
-  spec.add_dependency "open_uri"
+  # spec.add_dependency "open_uri"
 
 end

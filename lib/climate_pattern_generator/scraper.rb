@@ -1,6 +1,3 @@
-require 'open-uri'
-require 'nokogiri'
-require 'pry'
 
 
 class ClimatePatternGenerator::Dataset
@@ -11,9 +8,15 @@ class ClimatePatternGenerator::Dataset
   end
 
   def self.scrape_data
-    # need to set an empty array that will be filled with scraped data
-    # daily_data = []
-    # this data will be replaced by scraped data
+    daily_data = []
+    daily_data << self.scrape_date_and_temp
+    #     will also need to scrape color and url eventually
+    # daily_data << self.color_chart_data
+    daily_data
+  end
+
+  def self.scrape_date_and_temp
+    # ### this data will be replaced once scraping works
     day1 = self.new
     day1.date = "fake date"
     day1.temperature = "fake temperature"
@@ -37,9 +40,16 @@ class ClimatePatternGenerator::Dataset
     html = open("https://www.wunderground.com/history/monthly/#{location}/KPBG/date/#{year}-#{month}")
     doc = Nokogiri::HTML(html)
 
-    # daily_data << shovel scraped data into array
+  end
 
-    # need to return daily_data array
-    daily_data
+
+
+  def self.color_chart_data
+    # may need to hard code the color chart conversions and conditional logic
+    # call on self.scrape_yarn_colors method to get url for each color(optional)
+  end
+
+  def self.scrape_yarn_colors
+    #low priority, can remove url attribute if needed
   end
 end

@@ -10,10 +10,10 @@ class ClimatePatternGenerator::CLI
 
   def options
     puts "What would you like to do?"
-    puts "1. Create a pattern by year"
+    puts "1. Create a pattern - your location, year 2000"
     # ## will build for option 1, then add more later
-    # puts "2. Create a pattern by location"
-    # puts "3. Create a pattern by year and location"
+    puts "2. Create a pattern - your location, year 2010"
+    puts "3. CUSTOM: Create a pattern - choose location and year"
     puts "Type a number to make your choice."
   end
 
@@ -25,9 +25,7 @@ class ClimatePatternGenerator::CLI
 
       case input
       when "1"
-        puts "Choose a year between 1900 and 2018"
-          input = gets.strip
-        #add logic for choosing year
+        puts "Here is your pattern for your location, year 2000"
         list_data
         puts "================ see data above ========================"
       when "2"

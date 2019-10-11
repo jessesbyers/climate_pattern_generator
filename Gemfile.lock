@@ -3,7 +3,7 @@ PATH
   specs:
     climate_pattern_generator (0.1.0)
       nokogiri
-      watir
+      watir (~> 6.0)
 
 GEM
   remote: https://rubygems.org/

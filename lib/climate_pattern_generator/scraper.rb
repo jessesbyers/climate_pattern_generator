@@ -34,21 +34,16 @@ class ClimatePatternGenerator::Dataset
     [day1, day2]
     # ##end of data that will be replaced
 
-    # # need to scrape a page for every month of the year...
-        location = "us/vt/st.-albans"
-        year = "2019"
-        month = "8"
+    # # Dark Sky API need to scrape a page for every month of the year...
+    zip = "05478"
+    year = "2000"
+    month = "01"
+    day = "01"
 
-        html = open("https://www.wunderground.com/history/monthly/#{location}/KPBG/date/#{year}-#{month}")
-        doc = Nokogiri::HTML(html)
-        binding.pry
-    #
-    #     # month = doc.css("body content-wrap right-side-nav")
-    #     # doc.css("div.observation-table table.days")
-    #     # doc.css("div.observation-table")
-    #     # div.observation-table table.days tr
-    #     # day =
-    #     # temp =
+    html = open("https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-#{month}-#{day}")
+    doc = Nokogiri::HTML(html)
+    binding.pry
+# doc.css("table.weatherhistory_results").first.children.text.strip
 
   end
 
@@ -107,3 +102,22 @@ end
 
 
 # ##############beginning of scraping code from weather underground#########
+# location = "us/vt/st.-albans"
+# year = "2019"
+# month = "8"
+#
+# # browser = Watir::Browser.start "https://www.wunderground.com/history/monthly/#{location}/KPBG/date/#{year}-#{month}"
+# binding.pry
+#
+#
+# html = open("https://www.wunderground.com/history/monthly/#{location}/KPBG/date/#{year}-#{month}")
+# doc = Nokogiri::HTML(html)
+
+#     # month = doc.css("body content-wrap right-side-nav")
+#     # doc.css("div.observation-table table.days")
+#     # doc.css("div.observation-table")
+#     # div.observation-table table.days tr
+#     # day =
+#     # temp =
+
+# doc.css("div.city-body div.row.city-history-observation div div:nth-child(1) div div city-history-observation div div.observation-table table tbody tr td:nth-child(2) table tbody tr:nth-child(2) td:nth-child(1)")

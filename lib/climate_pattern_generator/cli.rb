@@ -55,9 +55,10 @@ class ClimatePatternGenerator::CLI
   end
 
   def list_data
+    puts "day. date - temperature - color"
     @daily_data = ClimatePatternGenerator::Dataset.print
     @daily_data.each.with_index(1) do |data, i|
-      puts "#{i}. #{data.date} - #{data.temperature} - #{data.color} - #{data.url}"
+      puts "#{i}. #{data.date} - #{data.temperature} - #{data.color} - ________"
     end
   end
 end

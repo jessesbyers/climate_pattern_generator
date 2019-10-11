@@ -11,7 +11,7 @@ class ClimatePatternGenerator::Dataset
     daily_data = []
     daily_data << self.scrape_date_and_temp
     #     will also need to scrape color and url eventually
-    # daily_data << self.color_chart_data
+    # daily_data << color_chart_data
     #can probably take out flatten once scrape method is working
     daily_data.flatten
 
@@ -37,26 +37,73 @@ class ClimatePatternGenerator::Dataset
 
 ##############beginning of scraping code from weather underground#########
 # need to scrape a page for every month of the year...
-    # location = "us/vt/st.-albans"
-    # year = "2019"
-    # month = "8"
-    #
-    # html = open("https://www.wunderground.com/history/monthly/#{location}/KPBG/date/#{year}-#{month}")
-    # doc = Nokogiri::HTML(html)
-    # binding.pry
+    location = "us/vt/st.-albans"
+    year = "2019"
+    month = "8"
+
+    html = open("https://www.wunderground.com/history/monthly/#{location}/KPBG/date/#{year}-#{month}")
+    doc = Nokogiri::HTML(html)
+    binding.pry
+
+    # month = doc.css("body")
+    # div.observation-table table.days tr
+    # day =
+    # temp =
+
+
+
+
 
   end
 
+  # def color_chart_data
+  #   # need to hard code the color chart conversions and conditional logic
+  #   # call on self.scrape_yarn_colors method to get url for each color(optional)
+  #   color_chart = [
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #     {:color => , :url => , :min => , :max => },
+  #   ]
+  # end
 
-
-  def self.color_chart_data
-    # may need to hard code the color chart conversions and conditional logic
-    # call on self.scrape_yarn_colors method to get url for each color(optional)
-  end
-
-
-
-  def self.scrape_yarn_colors
-    #low priority, can remove url attribute if needed
-  end
+#   def self.scrape_yarn_colors
+#     #low priority, can remove url attribute if needed
+#     html = open("https://www.knitpicks.com/yarn/wool-of-the-andes-worsted-yarn/c/5420103")
+#     doc = Nokogiri::HTML(html)
+#     binding.pry
+#
+# # gets semi-formatted array of colors
+# # colors = doc.css("body div.cozy-buy-grid").first.css("div b").inner_text.delete("  ").split("\n")
+# #??  url = doc.css("body div.cozy-buy-grid_image").first.attr("img").jpg
+#
+#   end
 end

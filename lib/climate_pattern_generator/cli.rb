@@ -3,21 +3,33 @@ class ClimatePatternGenerator::CLI
 
   def call
     puts "Welcome to the Climate Pattern Generator"
+    # get_search_terms
     options
     menu_loop
     goodbye
   end
 
+ #  def get_search_terms
+ # #this method will ask for input, translate input into the right format,
+ #  # and create instance variables to use while scraping
+ #    # puts "enter a year"
+ #    # @year = gets.strip
+ #    # puts "enter a zip code"
+ #    # @location = something....maybe use geocoder
+ #  # need to flesh out based on what scraper needs
+ #  end
+
   def options
     puts "What would you like to do?"
     puts "1. Create a pattern - your location, year 2000"
-    # ## will build for option 1, then add more later
+    # ## will build for option 1, then change to add custom scraping options
     puts "2. Create a pattern - your location, year 2010"
     puts "3. CUSTOM: Create a pattern - choose location and year"
     puts "Type a number to make your choice."
   end
 
   def menu_loop
+    # f custom scraping works, this menu will be options for different layouts of data
     input = nil
     while input != "exit"
       puts "Type exit or back at any time."

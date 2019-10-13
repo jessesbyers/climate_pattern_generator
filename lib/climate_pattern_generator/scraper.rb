@@ -17,32 +17,30 @@ class ClimatePatternGenerator::Dataset
   def self.scrape_date_and_temp
     zip = "05478"
     year = "2000"
-    month = "02"
-    day = "05"
 
-    html = open("https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-#{month}-#{day}")
+    html = open("https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-01")
     doc = Nokogiri::HTML(html)
 
     temp = doc.css("table.weatherhistory_results").first.children.text.split
     temperature = temp[5].gsub("Temperature", "")
-    # need to finish scraping day and month
-    day = "?"
-    month = "?"
+    date = doc.css("div.print-no form").attr("action").value.split("/")[-1]
 
-# NEED TO WORK ON DAY AND MONTH
-    # doc.css("div.date-day option").first.children.text
-    
          ###need to use next day button to iterate through pages and collect daily max temp
     url_stem = "https://www.almanac.com"
     next_day = doc.css("td.nextprev_next a").attribute("href").value
     next_day_url = url_stem + next_day
+
+# binding.pry
+
+
+
 
 
 
     # ### this data will be replaced by farmers almanac data once scraping works
     #
     day1 = self.new
-    day1.date = "#{month} #{day}"
+    day1.date = date
     day1.temperature = temperature
     day1.color = "fake color"
 

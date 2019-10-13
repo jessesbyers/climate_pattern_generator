@@ -18,23 +18,29 @@ class ClimatePatternGenerator::Dataset
     zip = "05478"
     year = "2000"
 
-    html = open("https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-01")
+    url = "https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-01"
+    html = open(url)
     doc = Nokogiri::HTML(html)
 
-    temp = doc.css("table.weatherhistory_results").first.children.text.split
-    temperature = temp[5].gsub("Temperature", "")
-    date = doc.css("div.print-no form").attr("action").value.split("/")[-1]
-
-         ###need to use next day button to iterate through pages and collect daily max temp
     url_stem = "https://www.almanac.com"
     next_day = doc.css("td.nextprev_next a").attribute("href").value
     next_day_url = url_stem + next_day
+    next_year = (year.to_i + 1).to_s
 
-# binding.pry
+    while next_day_url != "https://www.almanac.com/weather/history/zipcode/#{zip}/#{next_year}-01-01"
+      date = doc.css("div.print-no form").attr("action").value.split("/")[-1]
+      temperature = doc.css("table.weatherhistory_results td p span.value").children[2]
+      daily_data << [date, temperature]
+      url = next_day_url
+      html = open(url)
+      doc = Nokogiri::HTML(html)
+    end
+    # temperature = doc.css("table.weatherhistory_results").first.children.text.split[5].gsub("Temperature", "")
+
+         ###need to use next day button to iterate through pages and collect daily max temp
 
 
-
-
+binding.pry
 
 
     # ### this data will be replaced by farmers almanac data once scraping works
@@ -50,8 +56,8 @@ class ClimatePatternGenerator::Dataset
     day2.color = "fake color"
      ##end of data that will be replaced
 
-    [day1, day2]
-
+    # [day1, day2]
+    daily_data
   end
 
   # def color_chart_data

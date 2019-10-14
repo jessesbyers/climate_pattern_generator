@@ -20,7 +20,7 @@ class ClimatePatternGenerator::Data
     # while day.next_day_url != "https://www.almanac.com/weather/history/zipcode/#{zip}/#{next_year}-01-01"
     #   self.scrape_next_day
     # end
-    @@year_data
+    # @@year_data
   end
 
   # def self.scrape_next_day
@@ -37,10 +37,10 @@ class ClimatePatternGenerator::Data
   #   @@year_data
   # end
 
-  def self.scrape_data
-    @@year_data << self.scrape_day
-    @@year_data
-  end
+  # def self.scrape_data
+  #   @@year_data << self.scrape_day
+  #   @@year_data
+  # end
 
   def self.all
     @@year_data

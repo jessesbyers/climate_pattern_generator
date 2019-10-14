@@ -4,22 +4,29 @@ class ClimatePatternGenerator::CLI
   @@search_terms = []
 
   def call
-    puts "Welcome to the Climate Pattern Generator"
-    # get_search_terms
+    welcome
+    get_search_terms
+    ClimatePatternGenerator::Data.scrape_day
     options
     menu_loop
     goodbye
   end
 
-# need to add rescue and search term criteria
+  def welcome
+    puts "Welcome to the Climate Pattern Generator"
+    puts "here are some directions..."
+  end
+
+# need to add rescue/error message if invalid entry
   def get_search_terms
+    directions = "Enter a a valid U.S. zip code, and a year between 1945 and the current year."
     @@search_terms.clear
-    puts "enter a year"
-    self.year = gets.strip
-    puts "enter a zip code"
-    self.zip = gets.strip
-    @@search_terms << self.zip
-    @@search_terms << self.year
+    puts "Enter a zip code"
+      self.zip = gets.strip
+      @@search_terms << self.zip
+    puts "Enter a year"
+      self.year = gets.strip
+      @@search_terms << self.year
   end
 
   def self.search_terms
@@ -28,10 +35,9 @@ class ClimatePatternGenerator::CLI
 
   def options
     puts "What would you like to do?"
-    puts "1. STEP 1: Create a custom pattern"
-    puts "2. STEP 2: View and print your pattern"
-    puts "3. STEP 3: Read background information about the Tempestry Project"
-    puts "4. STEP 4: View the color chart"
+    puts "1. Print your pattern"
+    puts "2. Read background information about the Tempestry Project"
+    puts "3. View the color chart and yarn information"
     puts "Type a number to make your choice."
   end
 
@@ -43,14 +49,11 @@ class ClimatePatternGenerator::CLI
 
       case input
       when "1"
-        get_search_terms
-        options
-      when "2"
-        puts "Here is your pattern for your location and year"
         list_data
-        puts "================ end of data ========================"
+      when "2"
+        puts "here is info.... coming soon"
       when "3"
-        puts "Please come back soon - this option is not yet available"
+        puts "here is the color chart.... coming soon"
       else
         options
       end
@@ -62,10 +65,16 @@ class ClimatePatternGenerator::CLI
   end
 
   def list_data
-    puts "Here is your dialy maximum temperature data for zip code #{self.zip}, #{self.year}."
+    puts "Here is your daily maximum temperature data for zip code #{self.zip}, year #{self.year}."
     puts "Row #  Date - Temperature - Color - Row Complete?"
-    ClimatePatternGenerator::Data.scrape_day.each.with_index(1) do |day, i|
-      puts "#{i}. #{day.date} - #{day.temperature.to_i} - #{day.color} - ________"
+    ClimatePatternGenerator::Data.all.each.with_index(1) do |day, i|
+      if ClimatePatternGenerator::Data.all == nil
+        puts "Please try again. Enter a valid zip code and any year between 1945 and the current year."
+        get_search_terms
+      else
+        puts "#{i}. #{day.date} - #{day.temperature.to_i} - #{day.color} - ________"
+        puts "==================== end of data ===================================="
+      end
     end
   end
 end

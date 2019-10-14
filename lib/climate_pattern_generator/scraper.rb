@@ -77,6 +77,7 @@ class ClimatePatternGenerator::Data
       ["Coal", -1000, -30]
     ]
 
+get_color method is broken - every temp is assigned "Sapphire" color
   def self.get_color
     color = ""
         @@color_chart.map do |color_row|
@@ -114,3 +115,10 @@ end
 #   @@year_data << self.scrape_day
 #   @@year_data
 # end
+
+# @@color_chart.map do |color_row|
+#     if @temperature.to_i >= color_row[1] && @temperature.to_i <= color_row[2]
+#       color = "#{color_row[0]}"
+#       day.color = color
+#     end
+#   end

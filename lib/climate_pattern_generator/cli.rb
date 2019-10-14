@@ -34,10 +34,11 @@ class ClimatePatternGenerator::CLI
   end
 
   def options
-    puts "What would you like to do?"
-    puts "1. Read background information about the Tempestry Project"
-    puts "2. View the color chart and yarn information"
-    puts "3. Print your pattern"
+    puts "Please wait while your pattern is generated."
+    puts "What would you like to do next?"
+    puts "1. READ background information about the Tempestry Project"
+    puts "2. VIEW the color chart and yarn information"
+    puts "3. PRINT your pattern"
     puts "Type a number to make your choice."
   end
 
@@ -47,16 +48,16 @@ class ClimatePatternGenerator::CLI
       puts "Type exit or back at any time."
       input = gets.strip
       case input
-      when "1"
-        puts "here is info.... coming soon"
-      when "2"
-        puts "here is the color chart.... coming soon"
-      when "3"
-        list_data
-      else
-        options
-      end
-    end
+        when "1"
+          puts "here is info.... coming soon"
+        when "2"
+          puts "here is the color chart.... coming soon"
+        when "3"
+          list_data
+        else
+          options
+        end
+     end
   end
 
   def goodbye
@@ -72,8 +73,8 @@ class ClimatePatternGenerator::CLI
         get_search_terms
       else
         puts "________   #{i}.     #{day.date}   #{day.temperature.to_i} deg. F       #{day.color}"
-        puts "==================== end of data ===================================="
       end
     end
+    puts "============================= end of data =================================================="
   end
 end

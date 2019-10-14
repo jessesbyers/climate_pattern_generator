@@ -1,5 +1,6 @@
 class ClimatePatternGenerator::CLI
-  attr_accessor :date, :temperature, :color, :url
+  attr_accessor :date, :temperature, :color
+  attr_reader :url, :next_day_url
 
   def call
     puts "Welcome to the Climate Pattern Generator"
@@ -54,11 +55,13 @@ class ClimatePatternGenerator::CLI
     puts "Thank you for using the Climate Pattern Generator"
   end
 
+# need to fix list_data method to read Data.all
   def list_data
-    puts "day. date - temperature - color"
-    @daily_data = ClimatePatternGenerator::Dataset.print
-    @daily_data.each.with_index(1) do |data, i|
-      puts "#{i}. #{data.date} - #{data.temperature} - #{data.color} - ________"
+    puts "Row #  Date - Temperature - Color"
+    data = ClimatePatternGenerator::Data.all
+    binding.pry
+    data.each.with_index(1) do |day, i|
+      puts "#{i}. #{day.date} - #{day.temperature} - #{day.color} - ________"
     end
   end
 end

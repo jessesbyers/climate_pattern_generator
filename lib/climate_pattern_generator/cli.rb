@@ -5,7 +5,7 @@ class ClimatePatternGenerator::CLI
 
   def call
     puts "Welcome to the Climate Pattern Generator"
-    get_search_terms
+    # get_search_terms
     options
     menu_loop
     goodbye
@@ -28,9 +28,10 @@ class ClimatePatternGenerator::CLI
 
   def options
     puts "What would you like to do?"
-    puts "1. Print your custom pattern"
-    puts "2. Read background information about the Tempestry Project"
-    puts "3. View the color chart"
+    puts "1. STEP 1: Create a custom pattern"
+    puts "2. STEP 2: View and print your pattern"
+    puts "3. STEP 3: Read background information about the Tempestry Project"
+    puts "4. STEP 4: View the color chart"
     puts "Type a number to make your choice."
   end
 
@@ -42,12 +43,12 @@ class ClimatePatternGenerator::CLI
 
       case input
       when "1"
-        puts "Here is your pattern for your location and year"
-        # ClimatePatternGenerator::Data.scrape_day
-        list_data
-        # puts "================ see data above ========================"
+        get_search_terms
+        options
       when "2"
-        puts "Please come back soon - this option is not yet available"
+        puts "Here is your pattern for your location and year"
+        list_data
+        puts "================ end of data ========================"
       when "3"
         puts "Please come back soon - this option is not yet available"
       else
@@ -64,7 +65,7 @@ class ClimatePatternGenerator::CLI
     puts "Here is your dialy maximum temperature data for zip code #{self.zip}, #{self.year}."
     puts "Row #  Date - Temperature - Color - Row Complete?"
     ClimatePatternGenerator::Data.scrape_day.each.with_index(1) do |day, i|
-      puts "#{i}. #{day.date} - #{day.temperature} - #{day.color} - ________"
+      puts "#{i}. #{day.date} - #{day.temperature.to_i} - #{day.color} - ________"
     end
   end
 end

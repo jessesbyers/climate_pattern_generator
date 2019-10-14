@@ -13,7 +13,7 @@ class ClimatePatternGenerator::Data
     day = self.new
     day.date = doc.css("div.print-no form").attr("action").value.split("/")[-1]
     day.temperature = doc.css("table.weatherhistory_results td p span.value").children[2].text
-    day.color = self.get_color
+    day.color = day.get_color
     day.url = url
     day.next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
     @@year_data << day
@@ -43,7 +43,7 @@ class ClimatePatternGenerator::Data
   end
 
   @@color_chart = [
-      ["Currant", 1000, 121],
+      ["Currant", 121, 1000],
       ["Garnet", 116, 120],
       ["Rooibos", 111, 115],
       ["Hollyberry", 106, 110],
@@ -77,17 +77,17 @@ class ClimatePatternGenerator::Data
       ["Coal", -1000, -30]
     ]
 
-get_color method is broken - every temp is assigned "Sapphire" color
-  def self.get_color
+  def get_color
     color = ""
         @@color_chart.map do |color_row|
             if @temperature.to_i >= color_row[1] && @temperature.to_i <= color_row[2]
-              color = "#{color_row[0]}"
+              @color = "#{color_row[0]}"
             end
           end
-     color
+     @color
    end
 end
+
 
 # def initialize
 #   @date = date
@@ -115,10 +115,3 @@ end
 #   @@year_data << self.scrape_day
 #   @@year_data
 # end
-
-# @@color_chart.map do |color_row|
-#     if @temperature.to_i >= color_row[1] && @temperature.to_i <= color_row[2]
-#       color = "#{color_row[0]}"
-#       day.color = color
-#     end
-#   end

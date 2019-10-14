@@ -1,36 +1,40 @@
 class ClimatePatternGenerator::CLI
-  attr_accessor :date, :temperature, :color
+  attr_accessor :date, :temperature, :color, :year, :zip
   attr_reader :url, :next_day_url
+  @@search_terms = []
 
   def call
     puts "Welcome to the Climate Pattern Generator"
-    # get_search_terms
+    get_search_terms
     options
     menu_loop
     goodbye
   end
 
- #  def get_search_terms
- # #this method will ask for input, translate input into the right format,
- #  # and create instance variables to use while scraping
- #    # puts "enter a year"
- #    # @year = gets.strip
- #    # puts "enter a zip code"
- #    # @location = something....maybe use geocoder
- #  # need to flesh out based on what scraper needs
- #  end
+# need to add rescue and search term criteria
+  def get_search_terms
+    @@search_terms.clear
+    puts "enter a year"
+    self.year = gets.strip
+    puts "enter a zip code"
+    self.zip = gets.strip
+    @@search_terms << self.zip
+    @@search_terms << self.year
+  end
+
+  def self.search_terms
+    @@search_terms
+  end
 
   def options
     puts "What would you like to do?"
-    puts "1. Create a pattern - your location, year 2000"
-    # ## will build for option 1, then change to add custom scraping options
-    puts "2. Create a pattern - your location, year 2010"
-    puts "3. CUSTOM: Create a pattern - choose location and year"
+    puts "1. Print your custom pattern"
+    puts "2. Read background information about the Tempestry Project"
+    puts "3. View the color chart"
     puts "Type a number to make your choice."
   end
 
   def menu_loop
-    # f custom scraping works, this menu will be options for different layouts of data
     input = nil
     while input != "exit"
       puts "Type exit or back at any time."
@@ -38,9 +42,10 @@ class ClimatePatternGenerator::CLI
 
       case input
       when "1"
-        puts "Here is your pattern for your location, year 2000"
+        puts "Here is your pattern for your location and year"
+        # ClimatePatternGenerator::Data.scrape_day
         list_data
-        puts "================ see data above ========================"
+        # puts "================ see data above ========================"
       when "2"
         puts "Please come back soon - this option is not yet available"
       when "3"
@@ -55,12 +60,10 @@ class ClimatePatternGenerator::CLI
     puts "Thank you for using the Climate Pattern Generator"
   end
 
-# need to fix list_data method to read Data.all
   def list_data
-    puts "Row #  Date - Temperature - Color"
-    data = ClimatePatternGenerator::Data.all
-    binding.pry
-    data.each.with_index(1) do |day, i|
+    puts "Here is your dialy maximum temperature data for zip code #{self.zip}, #{self.year}."
+    puts "Row #  Date - Temperature - Color - Row Complete?"
+    ClimatePatternGenerator::Data.scrape_day.each.with_index(1) do |day, i|
       puts "#{i}. #{day.date} - #{day.temperature} - #{day.color} - ________"
     end
   end

@@ -17,11 +17,12 @@ class ClimatePatternGenerator::Data
     day.url = url
     day.next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
     @@year_data << day
-    # while day.next_day_url != "https://www.almanac.com/weather/history/zipcode/#{zip}/#{next_year}-01-01"
-    #   self.scrape_next_day
-    # end
-    # @@year_data
   end
+
+  # while day.next_day_url != "https://www.almanac.com/weather/history/zipcode/#{zip}/#{next_year}-01-01"
+  #   self.scrape_next_day
+  # end
+  # @@year_data
 
   # def self.scrape_next_day
   #   url = @@year_data[-1].url
@@ -34,11 +35,6 @@ class ClimatePatternGenerator::Data
   #   day.url = url
   #   day.next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
   #   @@year_data << day
-  #   @@year_data
-  # end
-
-  # def self.scrape_data
-  #   @@year_data << self.scrape_day
   #   @@year_data
   # end
 
@@ -81,14 +77,13 @@ class ClimatePatternGenerator::Data
       ["Coal", -1000, -30]
     ]
 
-    def self.get_color
-      color = ""
-        # @@color_chart.map do |color_row|
-        #     if @temperature.to_i >= color_row[1] && @temperature.to_i <= color_row[2]
-        #       color = "#{color_row[0]}"
-        #       binding.pry
-        #     end
-        #   end
+  def self.get_color
+    color = ""
+        @@color_chart.map do |color_row|
+            if @temperature.to_i >= color_row[1] && @temperature.to_i <= color_row[2]
+              color = "#{color_row[0]}"
+            end
+          end
      color
    end
 end
@@ -113,4 +108,9 @@ end
 #   html = open(url)
 #   doc = Nokogiri::HTML(html)
 #   next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
+# end
+
+# def self.scrape_data
+#   @@year_data << self.scrape_day
+#   @@year_data
 # end

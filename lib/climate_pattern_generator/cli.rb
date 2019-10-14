@@ -46,7 +46,6 @@ class ClimatePatternGenerator::CLI
     while input != "exit"
       puts "Type exit or back at any time."
       input = gets.strip
-
       case input
       when "1"
         list_data

@@ -2,7 +2,7 @@ class ClimatePatternGenerator::Data
   attr_accessor :date, :url, :temperature, :next_day_url, :color, :zip, :year
   @@year_data = []
 
-  def self.scrape_day
+  def self.scrape_first_day
     zip = ClimatePatternGenerator::CLI.search_terms[0]
     year = ClimatePatternGenerator::CLI.search_terms[1]
     next_year = (year.to_i + 1).to_s
@@ -17,28 +17,23 @@ class ClimatePatternGenerator::Data
     day.url = url
     day.next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
     @@year_data << day
-    self.scrape_next_day until @next_day_url == "https://www.almanac.com/weather/history/zipcode/#{zip}/#{next_year}-01-01"
   end
 
-# Iteration may be working, but 429 error (too many requests)
   def self.scrape_next_day
     zip = ClimatePatternGenerator::CLI.search_terms[0]
     year = ClimatePatternGenerator::CLI.search_terms[1]
     next_year = (year.to_i + 1).to_s
 
-    # while @next_day_url != "https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-03"
-    # while @next_day_url != "https://www.almanac.com/weather/history/zipcode/#{zip}/#{next_year}-01-01"
-      url = self.all[-1].next_day_url
-      html = open(url)
-      doc = Nokogiri::HTML(html)
-      day = self.new
-      day.date = doc.css("div.print-no form").attr("action").value.split("/")[-1]
-      day.temperature = doc.css("table.weatherhistory_results td p span.value").children[2].text
-      day.color = day.get_color
-      day.url = url
-      day.next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
-      @@year_data << day
-    # end
+    url = self.all[-1].next_day_url
+    html = open(url)
+    doc = Nokogiri::HTML(html)
+    day = self.new
+    day.date = doc.css("div.print-no form").attr("action").value.split("/")[-1]
+    day.temperature = doc.css("table.weatherhistory_results td p span.value").children[2].text
+    day.color = day.get_color
+    day.url = url
+    day.next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
+    @@year_data << day
   end
 
   def self.all
@@ -90,30 +85,3 @@ class ClimatePatternGenerator::Data
      @color
    end
 end
-
-# def initialize
-#   @date = date
-#   @temperature = temperature
-#   # @color = color
-#   @url = url
-#   @next_day_url = next_day_url
-# end
-
-# def url=(url)
-#   @url = url
-#   # zip = "05478"
-#   # year = "2000"
-#   url = "https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-01"
-# end
-
-# def next_day_url=(next_day_url)
-#   @next_day_url = next_day_url
-#   html = open(url)
-#   doc = Nokogiri::HTML(html)
-#   next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
-# end
-
-# def self.scrape_data
-#   @@year_data << self.scrape_day
-#   @@year_data
-# end

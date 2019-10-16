@@ -50,9 +50,9 @@ class ClimatePatternGenerator::CLI
 
         when "1"
           list_day
-          20.times do
+          365.times do
             ClimatePatternGenerator::Data.scrape_next_day
-            sleep 2
+            sleep 4
             list_next_day
           end
           options

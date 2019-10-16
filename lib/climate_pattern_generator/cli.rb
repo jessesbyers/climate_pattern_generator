@@ -50,10 +50,12 @@ class ClimatePatternGenerator::CLI
 
         when "1"
           list_day
+          # while day.url != "#{@@search_terms[1].to_i + 1}-01-01"
           365.times do
-            ClimatePatternGenerator::Data.scrape_next_day
-            sleep 4
-            list_next_day
+              ClimatePatternGenerator::Data.scrape_next_day
+              sleep 4
+              list_next_day
+            
           end
           options
 
@@ -87,7 +89,7 @@ class ClimatePatternGenerator::CLI
 
   def list_next_day
     next_day = ClimatePatternGenerator::Data.all.last
-    puts "________  #{next_day.date}   #{next_day.temperature.to_i} deg. F       #{next_day.color}"
+    puts "________   #{next_day.date}   #{next_day.temperature.to_i} deg. F       #{next_day.color}"
   end
 end
 

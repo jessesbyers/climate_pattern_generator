@@ -1,5 +1,5 @@
 class ClimatePatternGenerator::Data
-  attr_accessor :date, :url, :temperature, :next_day_url, :color, :zip, :year
+  attr_accessor :date, :url, :temperature, :next_day_url, :color
   @@year_data = []
 
   def self.scrape_first_day

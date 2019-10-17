@@ -1,5 +1,5 @@
 class ClimatePatternGenerator::CLI
-  attr_accessor :date, :temperature, :color, :year, :zip
+  attr_accessor :year, :zip
   attr_reader :url, :next_day_url
   @@search_terms = []
 
@@ -25,9 +25,6 @@ class ClimatePatternGenerator::CLI
     puts "Enter a year"
       self.year = gets.strip
       @@search_terms << self.year
-      ClimatePatternGenerator::Data.scrape_first_day
-      puts "here are some directions... and info about the Tempestry project"
-      puts "Please wait while we generate your pattern"
   end
 
   def self.search_terms
@@ -42,22 +39,25 @@ class ClimatePatternGenerator::CLI
   end
 
   def menu_loop
-    input = nil
-    while input != "exit"
-      puts "Type exit or back at any time."
-      input = gets.strip
-      case input
+  input = nil
+  while input != "exit"
+    puts "Type exit or back at any time."
+    input = gets.strip
+    case input
 
-        when "1"
-          list_day
-          # while day.url != "#{@@search_terms[1].to_i + 1}-01-01"
-          365.times do
-              ClimatePatternGenerator::Data.scrape_next_day
-              sleep 4
-              list_next_day
-            
+      when "1"
+        puts "Please wait while we generate your pattern"
+        ClimatePatternGenerator::Data.scrape_first_day
+        sleep 4
+        list_day
+
+        loop do until ClimatePatternGenerator::Data.all.length == 5
+            ClimatePatternGenerator::Data.scrape_next_day
+            sleep 4
+            list_next_day
           end
-          options
+        end
+        options
 
         when "2"
           puts "more info coming soon"
@@ -81,7 +81,6 @@ class ClimatePatternGenerator::CLI
         puts "Please try again. Enter a valid zip code and any year between 1945 and the current year."
         get_search_terms
       else
-        # puts "________   #{i}.     #{day.date}   #{day.temperature.to_i} deg. F       #{day.color}"
         puts "________   #{day.date}   #{day.temperature.to_i} deg. F       #{day.color}"
       end
     end
@@ -92,5 +91,3 @@ class ClimatePatternGenerator::CLI
     puts "________   #{next_day.date}   #{next_day.temperature.to_i} deg. F       #{next_day.color}"
   end
 end
-
-# puts "============================= Please wait while more data is loaded =================================================="

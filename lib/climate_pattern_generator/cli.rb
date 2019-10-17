@@ -36,12 +36,13 @@ class ClimatePatternGenerator::CLI
     puts "1. Print pattern"
     puts "2. Read more about the Tempestry Project and yarn colors"
     puts "Type a number to make your choice."
+    puts "Type exit or back at any time."
   end
 
   def menu_loop
   input = nil
+
   while input != "exit"
-    puts "Type exit or back at any time."
     input = gets.strip
     case input
 
@@ -51,7 +52,7 @@ class ClimatePatternGenerator::CLI
         sleep 4
         list_day
 
-        loop do until ClimatePatternGenerator::Data.all.length == 5
+        loop do until ClimatePatternGenerator::Data.all.length == 3
             ClimatePatternGenerator::Data.scrape_next_day
             sleep 4
             list_next_day

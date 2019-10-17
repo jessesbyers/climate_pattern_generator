@@ -40,6 +40,10 @@ class ClimatePatternGenerator::Data
     @@year_data
   end
 
+  def self.clear
+    @@year_data.clear
+  end
+
   @@color_chart = [
       ["Currant", 121, 1000],
       ["Garnet", 116, 120],

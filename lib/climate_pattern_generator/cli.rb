@@ -30,7 +30,7 @@ class ClimatePatternGenerator::CLI
   def options
     puts "What would you like to do?"
     puts "1. Preview pattern"
-    puts "2. Print full pattern"
+    puts "2. Continue printing full pattern"
     puts "3. Read more about the Tempestry Project and yarn colors"
     puts "4. Save pattern"
     puts "5. Enter new search terms"
@@ -49,14 +49,14 @@ class ClimatePatternGenerator::CLI
           2.times do
             scrape_print_day
           end
-          puts "If this preview looks correct, choose 2 to print full pattern options"
+          puts "If this preview looks correct, choose 2 to continue printing full pattern "
           options
 
           when "2"
+            ClimatePatternGenerator::Data.all.clear
             puts "Please wait while we generate your pattern"
             first_day
-            # while ClimatePatternGenerator::Data.all.length < 3
-            if Date.leap?(@year)
+            if Date.leap?(self.year.to_i)
               5.times do #365
                 scrape_print_day
               end
@@ -126,7 +126,10 @@ class ClimatePatternGenerator::CLI
     puts "________   #{day.date}   #{day.temperature.to_i} deg. F       #{day.color}"
   end
 
-  def list_text
-  end
+  # def leap_year?(year)
+  #   return false unless year % 4 == 0
+  #   return true unless year % 100 == 0
+  #   year % 400 == 0
+  # end
 
 end

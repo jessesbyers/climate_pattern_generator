@@ -11,10 +11,6 @@ class ClimatePatternGenerator::CLI
     goodbye
   end
 
-  def welcome
-    puts "Welcome to the Climate Pattern Generator"
-  end
-
 # need to add rescue/error message if invalid entry
   def get_search_terms
     directions = "Enter a a valid U.S. zip code, and a year between 1945 and the current year."
@@ -33,35 +29,54 @@ class ClimatePatternGenerator::CLI
 
   def options
     puts "What would you like to do?"
-    puts "1. Print pattern"
-    puts "2. Read more about the Tempestry Project and yarn colors"
+    puts "1. Preview pattern"
+    puts "2. Print full pattern"
+    puts "3. Read more about the Tempestry Project and yarn colors"
+    puts "4. Save pattern"
+    puts "5. Enter new search terms"
     puts "Type a number to make your choice."
     puts "Type exit or back at any time."
   end
 
   def menu_loop
-  input = nil
-
+    input = nil
     while input != "exit"
       input = gets.strip
       case input
-
         when "1"
-          puts "Please wait while we generate your pattern"
-          ClimatePatternGenerator::Data.scrape_first_day
-          sleep 4
-          list_day
-
-          # while ClimatePatternGenerator::Data.all.length < 365
-          # while !ClimatePatternGenerator::Data.all.include?()
-          while ClimatePatternGenerator::Data.all.length < 3
-            ClimatePatternGenerator::Data.scrape_next_day
-            sleep 4
-            list_next_day
+          puts "Please wait while we PREVIEW your pattern"
+          first_day
+          2.times do
+            scrape_print_day
           end
+          puts "If this preview looks correct, choose 2 to print full pattern options"
           options
 
           when "2"
+            puts "Please wait while we generate your pattern"
+            first_day
+            # while ClimatePatternGenerator::Data.all.length < 3
+            if Date.leap?(@year)
+              5.times do #365
+                scrape_print_day
+              end
+            else
+              3.times do  #364
+                scrape_print_day
+              end
+            end
+          # end
+            options
+
+          when "3"
+            puts "more info coming soon"
+            options
+
+          when "4"
+            puts "more info coming soon"
+            options
+
+          when "5"
             puts "more info coming soon"
             options
 
@@ -69,6 +84,24 @@ class ClimatePatternGenerator::CLI
             options
           end
        end
+     end
+  # end
+
+
+  def first_day
+    ClimatePatternGenerator::Data.scrape_first_day
+    sleep 4
+    list_day
+  end
+
+  def scrape_print_day
+    ClimatePatternGenerator::Data.scrape_next_day
+    sleep 4
+    list_next_day
+  end
+
+  def welcome
+    puts "Welcome to the Climate Pattern Generator"
   end
 
   def goodbye
@@ -89,7 +122,11 @@ class ClimatePatternGenerator::CLI
   end
 
   def list_next_day
-    next_day = ClimatePatternGenerator::Data.all.last
-    puts "________   #{next_day.date}   #{next_day.temperature.to_i} deg. F       #{next_day.color}"
+    day = ClimatePatternGenerator::Data.all.last
+    puts "________   #{day.date}   #{day.temperature.to_i} deg. F       #{day.color}"
   end
+
+  def list_text
+  end
+
 end

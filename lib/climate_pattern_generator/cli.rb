@@ -57,15 +57,14 @@ class ClimatePatternGenerator::CLI
             puts "Please wait while we generate your pattern"
             first_day
             if Date.leap?(self.year.to_i)
-              5.times do #365
+              365.times do #365
                 scrape_print_day
               end
             else
-              3.times do  #364
+              364.times do  #364
                 scrape_print_day
               end
             end
-          # end
             options
 
           when "3"
@@ -85,8 +84,6 @@ class ClimatePatternGenerator::CLI
           end
        end
      end
-  # end
-
 
   def first_day
     ClimatePatternGenerator::Data.scrape_first_day
@@ -125,11 +122,5 @@ class ClimatePatternGenerator::CLI
     day = ClimatePatternGenerator::Data.all.last
     puts "________   #{day.date}   #{day.temperature.to_i} deg. F       #{day.color}"
   end
-
-  # def leap_year?(year)
-  #   return false unless year % 4 == 0
-  #   return true unless year % 100 == 0
-  #   year % 400 == 0
-  # end
 
 end

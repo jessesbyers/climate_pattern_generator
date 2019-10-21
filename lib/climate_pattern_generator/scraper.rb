@@ -16,6 +16,7 @@ class ClimatePatternGenerator::Data
     day.url = url
     day.next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
     @@year_data << day
+    binding.pry
   end
 
   def self.scrape_next_day

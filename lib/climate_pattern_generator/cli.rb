@@ -1,6 +1,5 @@
 class ClimatePatternGenerator::CLI
   attr_accessor :year, :zip, :pattern
-  attr_reader :url, :next_day_url
   @@search_terms = []
 
   def call
@@ -39,7 +38,7 @@ class ClimatePatternGenerator::CLI
     puts "2. Enter new search terms"
     puts "3. Continue printing full pattern"
     puts "4. Save pattern"
-    puts "5. Read more about the Tempestry Project and yarn colors"
+    puts "5. Learn more about the Tempestry Project and yarn colors"
     puts "Type a number to make your choice."
     puts "Type exit or back at any time."
   end

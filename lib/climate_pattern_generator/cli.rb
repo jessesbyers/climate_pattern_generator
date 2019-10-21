@@ -6,12 +6,10 @@ class ClimatePatternGenerator::CLI
   def call
     welcome
     get_search_terms
-    options
+    options1
     menu_loop
-    # goodbye
   end
 
-# need to add rescue/error message if invalid entry
   def get_search_terms
     directions = "Enter a a valid U.S. zip code, and a year between 1945 and the current year."
     @@search_terms.clear
@@ -27,13 +25,21 @@ class ClimatePatternGenerator::CLI
     @@search_terms
   end
 
-  def options
+  def options1
     puts "What would you like to do?"
     puts "1. Preview pattern"
-    puts "2. Continue printing full pattern"
-    puts "3. Read more about the Tempestry Project and yarn colors"
+    puts "2. Enter new search terms"
+    puts "Type a number to make your choice."
+    puts "Type exit or back at any time."
+  end
+
+  def options2
+    puts "What would you like to do?"
+    puts "1. Preview pattern"
+    puts "2. Enter new search terms"
+    puts "3. Continue printing full pattern"
     puts "4. Save pattern"
-    puts "5. Enter new search terms"
+    puts "5. Read more about the Tempestry Project and yarn colors"
     puts "Type a number to make your choice."
     puts "Type exit or back at any time."
   end
@@ -50,10 +56,13 @@ class ClimatePatternGenerator::CLI
           2.times do
             scrape_print_day
           end
-          puts "If this preview looks correct, choose 2 to continue printing full pattern "
-          options
+          puts "If this preview looks correct, choose 3 to continue printing full pattern "
+          options2
 
           when "2"
+            call
+
+          when "3"
             ClimatePatternGenerator::Data.all.clear
             puts "Please wait while we generate your pattern"
             first_day
@@ -66,24 +75,21 @@ class ClimatePatternGenerator::CLI
                 scrape_print_day
               end
             end
-            options
-
-          when "3"
-            puts "more info coming soon"
-            options
+            options2
 
           when "4"
             save_pattern
-            options
+            options2
 
           when "5"
-            call
+            puts "more info coming soon"
+            options2
 
           when "exit"
             goodbye
 
           else
-            options
+            options1
           end
        end
      end

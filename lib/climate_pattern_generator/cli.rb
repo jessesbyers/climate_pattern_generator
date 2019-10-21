@@ -49,17 +49,17 @@ class CLI
       input = gets.strip
       case input
         when "1"
-
-
-
           Day_data.all.clear
           puts "Please wait while we PREVIEW your pattern"
           Day_data.new(data_attributes)
-          sleep 4
-          Day_data.list_day
-          2.times do
-            scrape_print_day
-          end
+          Day_data.all
+          binding.pry
+          # Day_data.first_day
+          #
+          # 2.times do
+          #   Day_data.nextday
+          #   scrape_print_day
+          # end
           puts "If this preview looks correct, choose 3 to continue printing full pattern "
           options2
 

@@ -1,4 +1,3 @@
-# class ClimatePatternGenerator::CLI
 class CLI
   attr_accessor :year, :zip, :pattern
   @@search_terms = []
@@ -50,7 +49,7 @@ class CLI
       input = gets.strip
       case input
         when "1"
-          Scraper.all.clear
+          Data.all.clear
           puts "Please wait while we PREVIEW your pattern"
           first_day
           2.times do
@@ -63,7 +62,7 @@ class CLI
             call
 
           when "3"
-            Scraper.all.clear
+            Data.all.clear
             puts "Please wait while we generate your pattern"
             first_day
             if Date.leap?(self.year.to_i)
@@ -104,43 +103,7 @@ class CLI
 
      def save_pattern
        self.pattern = []
-       self.pattern << Scraper.all
+       self.pattern << Data.all
        puts "You have saved your pattern for zip code #{self.zip}, year #{self.year}."
      end
-
-
-
-
-  def first_day
-    Scraper.scrape_first_day
-    sleep 4
-    list_day
-  end
-
-  def scrape_print_day
-    Scraper.scrape_next_day
-    sleep 4
-    list_next_day
-  end
-
-
-
-  def list_day
-    puts "Here is your daily maximum temperature data for zip code #{self.zip}, year #{self.year}."
-    puts "Complete?  Date         Temperature     Yarn Color"
-    Scraper.all.each.with_index(1) do |day, i|
-      if Scraper.all == nil
-        puts "Please try again. Enter a valid zip code and any year between 1945 and the current year."
-        get_search_terms
-      else
-        puts "________   #{day.date}   #{day.max_temp.to_i} deg. F       #{day.color}"
-      end
-    end
-  end
-
-  def list_next_day
-    day = Scraper.all.last
-    puts "________   #{day.date}   #{day.max_temp.to_i} deg. F       #{day.color}"
-  end
-
 end

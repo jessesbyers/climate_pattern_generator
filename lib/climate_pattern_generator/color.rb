@@ -1,6 +1,5 @@
-# class ClimatePatternGenerator::Color
 class Color
-  #
+
   # @@color_chart = [
   #     ["Currant", 121, 1000],
   #     ["Garnet", 116, 120],
@@ -37,13 +36,10 @@ class Color
   #   ]
   #
   # def self.get_color
-  #   binding.pry
-  #
   #   color = ""
   #       @@color_chart.map do |color_row|
   #           #  if ClimatePatternGenerator::Data.day.temperature.to_i >= color_row[1] && ClimatePatternGenerator::Data.day.temperature.to_i <= color_row[2]
-  #            if ClimatePatternGenerator::Data.all[-1].temperature.to_i >= color_row[1] && ClimatePatternGenerator::Data.day[-1].temperature.to_i <= color_row[2]
-  #
+  #            if Date.all[-1].max_temp.to_i >= color_row[1] && Date.day[-1].max_temp.to_i <= color_row[2]
   #           # if @temperature.to_i >= color_row[1] && @temperature.to_i <= color_row[2]
   #             @color = "#{color_row[0]}"
   #           end

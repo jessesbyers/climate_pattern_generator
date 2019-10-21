@@ -26,7 +26,6 @@ class Day_data
     end
 
     def self.first_day
-
       puts "Here is your daily maximum temperature data for zip code #{CLI.search_terms[0]}, year #{CLI.search_terms[1]}."
       puts "Complete?  Date         Temperature     Yarn Color"
       Scraper.all.each do |attr|

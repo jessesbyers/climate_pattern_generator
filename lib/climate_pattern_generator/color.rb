@@ -1,4 +1,5 @@
-class ClimatePatternGenerator::Color
+# class ClimatePatternGenerator::Color
+class Color
   #
   # @@color_chart = [
   #     ["Currant", 121, 1000],

@@ -1,34 +1,43 @@
-class ClimatePatternGenerator::Data
-  attr_accessor :date, :url, :temperature, :next_day_url, :color
+# class ClimatePatternGenerator::Data
+class Scraper
+  attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station
   @@year_data = []
 
   def self.scrape_first_day
-    zip = ClimatePatternGenerator::CLI.search_terms[0]
-    year = ClimatePatternGenerator::CLI.search_terms[1]
-    next_year = (year.to_i + 1).to_s
+    zip = CLI.search_terms[0]
+    year = CLI.search_terms[1]
     url = "https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-01"
     html = open(url)
     doc = Nokogiri::HTML(html)
     day = self.new
     day.date = doc.css("div.print-no form").attr("action").value.split("/")[-1]
-    day.temperature = doc.css("table.weatherhistory_results td p span.value").children[2].text
+    day.location_name = doc.css("h1").children[-1].text.strip.gsub("Weather History for ", "")
+    day.weather_station = doc.css("h2.weatherhistory_results_station").text.strip.gsub("For the ", "")
+    day.max_temp = doc.css("table.weatherhistory_results td p span.value").children[2].text
+    day.min_temp = doc.css("table.weatherhistory_results td p span.value").children[0].text
+    day.mean_temp = doc.css("table.weatherhistory_results td p span.value").children[1].text
     day.color = day.get_color
     day.url = url
     day.next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
     @@year_data << day
-    binding.pry
   end
 
   def self.scrape_next_day
-    zip = ClimatePatternGenerator::CLI.search_terms[0]
-    year = ClimatePatternGenerator::CLI.search_terms[1]
-    next_year = (year.to_i + 1).to_s
+    zip = CLI.search_terms[0]
+    year = CLI.search_terms[1]
     url = self.all[-1].next_day_url
     html = open(url)
     doc = Nokogiri::HTML(html)
     day = self.new
     day.date = doc.css("div.print-no form").attr("action").value.split("/")[-1]
-    day.temperature = doc.css("table.weatherhistory_results td p span.value").children[2].text
+    day.location_name = doc.css("h1").children[-1].text.strip.gsub("Weather History for ", "")
+    day.weather_station = doc.css("h2.weatherhistory_results_station").text.strip.gsub("For the ", "")
+    day.max_temp = doc.css("table.weatherhistory_results td p span.value").children[2].text
+    day.min_temp = doc.css("table.weatherhistory_results td p span.value").children[0].text
+    day.mean_temp = doc.css("table.weatherhistory_results td p span.value").children[1].text
+    day.color = day.get_color
+    day.date = doc.css("div.print-no form").attr("action").value.split("/")[-1]
+    day.max_temp = doc.css("table.weatherhistory_results td p span.value").children[2].text
     day.color = day.get_color
     day.url = url
     day.next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
@@ -81,7 +90,7 @@ class ClimatePatternGenerator::Data
   def get_color
     color = ""
         @@color_chart.map do |color_row|
-            if @temperature.to_i >= color_row[1] && @temperature.to_i <= color_row[2]
+            if @max_temp.to_i >= color_row[1] && @max_temp.to_i <= color_row[2]
               @color = "#{color_row[0]}"
             end
           end

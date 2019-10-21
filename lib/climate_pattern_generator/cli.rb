@@ -1,5 +1,5 @@
 class ClimatePatternGenerator::CLI
-  attr_accessor :year, :zip
+  attr_accessor :year, :zip, :pattern
   attr_reader :url, :next_day_url
   @@search_terms = []
 
@@ -8,7 +8,7 @@ class ClimatePatternGenerator::CLI
     get_search_terms
     options
     menu_loop
-    goodbye
+    # goodbye
   end
 
 # need to add rescue/error message if invalid entry
@@ -44,6 +44,7 @@ class ClimatePatternGenerator::CLI
       input = gets.strip
       case input
         when "1"
+          ClimatePatternGenerator::Data.all.clear
           puts "Please wait while we PREVIEW your pattern"
           first_day
           2.times do
@@ -72,12 +73,14 @@ class ClimatePatternGenerator::CLI
             options
 
           when "4"
-            puts "more info coming soon"
+            save_pattern
             options
 
           when "5"
-            puts "more info coming soon"
-            options
+            call
+
+          when "exit"
+            goodbye
 
           else
             options
@@ -121,6 +124,12 @@ class ClimatePatternGenerator::CLI
   def list_next_day
     day = ClimatePatternGenerator::Data.all.last
     puts "________   #{day.date}   #{day.temperature.to_i} deg. F       #{day.color}"
+  end
+
+  def save_pattern
+    self.pattern = []
+    self.pattern << ClimatePatternGenerator::Data.all
+    puts "You have saved your pattern for zip code #{self.zip}, year #{self.year}."
   end
 
 end

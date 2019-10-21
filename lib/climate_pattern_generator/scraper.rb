@@ -3,7 +3,6 @@ class ClimatePatternGenerator::Data
   @@year_data = []
 
   def self.scrape_first_day
-    # self.get_terms
     zip = ClimatePatternGenerator::CLI.search_terms[0]
     year = ClimatePatternGenerator::CLI.search_terms[1]
     next_year = (year.to_i + 1).to_s
@@ -20,7 +19,6 @@ class ClimatePatternGenerator::Data
   end
 
   def self.scrape_next_day
-    # self.get_terms
     zip = ClimatePatternGenerator::CLI.search_terms[0]
     year = ClimatePatternGenerator::CLI.search_terms[1]
     next_year = (year.to_i + 1).to_s
@@ -33,15 +31,8 @@ class ClimatePatternGenerator::Data
     day.color = day.get_color
     day.url = url
     day.next_day_url = "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
-    @@year_data << day  end
-
-  # def self.get_terms
-  #
-  # end
-  #
-  # def self.scrape_details
-  #
-  # end
+    @@year_data << day
+  end
 
   def self.all
     @@year_data

@@ -4,7 +4,7 @@ require 'pry'
 require 'date'
 
 require_relative "./climate_pattern_generator/version"
-require_relative './climate_pattern_generator/cli'
-require_relative './climate_pattern_generator/scraper'
 require_relative './climate_pattern_generator/color'
-require_relative './climate_pattern_generator/data'
+require_relative './climate_pattern_generator/scraper'
+require_relative './climate_pattern_generator/daydata'
+require_relative './climate_pattern_generator/cli'

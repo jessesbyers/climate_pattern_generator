@@ -1,5 +1,5 @@
 class CLI
-  attr_accessor :year, :zip, :pattern
+  attr_accessor :year, :zip, :pattern, :data_attributes
   @@search_terms = []
 
   def call
@@ -49,9 +49,14 @@ class CLI
       input = gets.strip
       case input
         when "1"
-          Data.all.clear
+
+
+
+          Day_data.all.clear
           puts "Please wait while we PREVIEW your pattern"
-          first_day
+          Day_data.new(data_attributes)
+          sleep 4
+          Day_data.list_day
           2.times do
             scrape_print_day
           end
@@ -62,10 +67,10 @@ class CLI
             call
 
           when "3"
-            Data.all.clear
+            Day_data.all.clear
             puts "Please wait while we generate your pattern"
             first_day
-            if Date.leap?(self.year.to_i)
+            if Day_data.leap?(self.year.to_i)
               365.times do #365
                 scrape_print_day
               end
@@ -103,7 +108,7 @@ class CLI
 
      def save_pattern
        self.pattern = []
-       self.pattern << Data.all
+       self.pattern << Day_data.all
        puts "You have saved your pattern for zip code #{self.zip}, year #{self.year}."
      end
 end

@@ -1,5 +1,6 @@
 class Color
   attr_accessor :color, :min, :max
+  attr_reader :colors
   @@all = []
 
     @@colors = [
@@ -37,22 +38,27 @@ class Color
       {:color => "Coal", :min => -1000, :max => -30}
     ]
 
-
   def self.colors
     @@colors
   end
 
   def initialize(colors)
     colors.each do |row|
-      row.each do |key, value|
-        binding.pry
-        self.send(("#{key}="), value)
-        @@all << self
+      row.each do
+        self.color = row[:color]
+        self.min = row[:min]
+        self.max = row[:max]
+        # self.send(("#{:color}="), value)
+        # self.send(("#{:min}="), value)
+        # self.send(("#{:max}="), value)
       end
+      # {|key, value| self.send(("#{key}="), value)}
     end
+    binding.pry
   end
 
   def self.all
+    # @@all << self
     @@all
   end
 end

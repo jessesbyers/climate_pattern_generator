@@ -5,7 +5,7 @@ class CLI
   def call
     colors = Color.colors
     Color.new(colors)
-    binding.pry
+    # binding.pry
     welcome
     get_search_terms
     options1

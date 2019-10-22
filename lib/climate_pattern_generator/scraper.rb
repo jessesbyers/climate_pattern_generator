@@ -30,13 +30,13 @@ class Scraper
   end
 
 # need to test method
-  def get_color
-    colors = Color.colors
-    Color.new(colors)
-    Color.all.each do |color|
-      if max_temp.to_i >= color.min && max_temp.to_i <= color.max
-        @color = color
-      end
-    end
-  end
+  # def get_color
+  #   colors = Color.colors
+  #   Color.new(colors)
+  #   Color.all.each do |color|
+  #     if max_temp.to_i >= color.min && max_temp.to_i <= color.max
+  #       @color = color
+  #     end
+  #   end
+  # end
 end

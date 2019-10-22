@@ -1,7 +1,6 @@
 # everything working except get_color
 
 class Scraper
-  attr_reader :next_day_url
   attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station
   @@all = []
 

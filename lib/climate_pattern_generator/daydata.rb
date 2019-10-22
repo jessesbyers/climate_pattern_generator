@@ -1,9 +1,41 @@
+# preview and year methods work.
+# need to add print methods
+
 class Day_data
   attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station
-  attr_reader :data_attributes
-  @@year_data = []
+  @@all = []
 
+  def self.year
+    self.clear
+    if Day_data.leap?(self.year.to_i)
+      366.times do
+        @@all << Scraper.new
+        sleep 4
+      end
+    else
+      365.times do
+        @@all << Scraper.new
+        sleep 4
+      end
+    end
   end
+
+  def self.preview
+    self.clear
+    5.times do
+      @@all << Scraper.new
+      end
+    binding.pry
+  end
+
+  def self.all
+    @@all
+  end
+
+  def self.clear
+    @@all.clear
+  end
+end
 
 # does not recognize attributes - need to revise
     # def initialize(attributes)
@@ -57,11 +89,7 @@ class Day_data
 #       puts "________   #{day.date}   #{day.max_temp.to_i} deg. F       #{day.color}"
 #     end
 #
-#     def self.all
-#       @@year_data
-#     end
+
 #
-#     def self.clear
-#       @@year_data.clear
-#     end
+
 # end

@@ -1,3 +1,5 @@
+# need to put new class methods back into CLI class
+
 class CLI
   attr_accessor :year, :zip, :pattern, :attributes
   @@search_terms = []
@@ -5,6 +7,9 @@ class CLI
   def call
     welcome
     get_search_terms
+    Day_data.preview
+    binding.pry
+    Day_data.year
     options1
     menu_loop
   end
@@ -38,7 +43,7 @@ class CLI
     puts "2. Enter new search terms"
     puts "3. Continue printing full pattern"
     puts "4. Save pattern"
-    puts "5. Learn more about the Tempestry Project and yarn colors"
+    puts "5. Choose a day to see full weather info"
     puts "Type a number to make your choice."
     puts "Type exit or back at any time."
   end

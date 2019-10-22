@@ -3,11 +3,10 @@ class CLI
   @@search_terms = []
 
   def call
-    colors = Color.colors
-    Color.new(colors)
-    # binding.pry
     welcome
     get_search_terms
+    Scraper.new
+    binding.pry
     options1
     menu_loop
   end
@@ -53,7 +52,6 @@ class CLI
       case input
         when "1"
           # Day_data.all.clear
-          Scraper.new
           puts "Please wait while we PREVIEW your pattern"
           # Day_data.new(attributes)
           # Day_data.all
@@ -66,6 +64,8 @@ class CLI
           # end
           puts "If this preview looks correct, choose 3 to continue printing full pattern "
           options2
+
+
 
           when "2"
             call

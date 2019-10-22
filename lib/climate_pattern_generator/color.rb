@@ -1,3 +1,5 @@
+# everything working except initialize
+
 class Color
   attr_accessor :color, :min, :max
   attr_reader :colors
@@ -42,23 +44,17 @@ class Color
     @@colors
   end
 
+# need to fix - outputs 32 objects of same color
   def initialize(colors)
     colors.each do |row|
-      row.each do
-        self.color = row[:color]
-        self.min = row[:min]
-        self.max = row[:max]
-        # self.send(("#{:color}="), value)
-        # self.send(("#{:min}="), value)
-        # self.send(("#{:max}="), value)
+      row.each do |key, value|
+        self.send(("#{key}="), value)
+        @@all << self
       end
-      # {|key, value| self.send(("#{key}="), value)}
     end
-    binding.pry
   end
 
   def self.all
-    # @@all << self
     @@all
   end
 end

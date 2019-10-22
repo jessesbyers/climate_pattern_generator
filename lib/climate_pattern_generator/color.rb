@@ -1,52 +1,66 @@
 class Color
+  attr_accessor :color, :min, :max
+  @@all = []
 
-  @@color_chart = [
-      ["Currant", 121, 1000],
-      ["Garnet", 116, 120],
-      ["Rooibos", 111, 115],
-      ["Hollyberry", 106, 110],
-      ["Firecracker", 101, 105],
-      ["Cranberry", 96, 100],
-      ["Red", 91, 95],
-      ["Victorian", 86, 90],
-      ["Papaya", 81, 85],
-      ["Orange", 76, 80],
-      ["Conch", 71, 75],
-      ["Caution", 66, 70],
-      ["Semolina", 61, 65],
-      ["Creme Brulee", 56, 60],
-      ["Green Tea", 51, 55],
-      ["Peapod", 46, 50],
-      ["Grass", 41, 45],
-      ["Everglade", 36, 40],
-      ["Tranquil", 31, 35],
-      ["Calypso", 26, 30],
-      ["Whirlpool", 21, 25],
-      ["Baltic", 16, 20],
-      ["Fjord", 11, 15],
-      ["Ciel", 6, 10],
-      ["Celestial", 1, 5],
-      ["Sapphire", -4, 0],
-      ["Solstice", -9, -5],
-      ["Lullaby", -14, -10],
-      ["Amethyst", -19, -15],
-      ["Indigo", -24, -20],
-      ["Blackberry", -29, -25],
-      ["Coal", -1000, -30]
+    @@attributes = [
+      {:color => "Currant", :min => 121, :max => 1000},
+      {:color => "Garnet", :min => 116, :max => 120},
+      {:color => "Rooibos", :min => 111, :max => 115},
+      {:color => "Hollyberry", :min => 106, :max => 110},
+      {:color => "Firecracker", :min => 101, :max => 105},
+      {:color => "Cranberry", :min => 96, :max => 100},
+      {:color => "Red", :min => 91, :max => 95},
+      {:color => "Victorian", :min => 86, :max => 90},
+      {:color => "Papaya", :min => 81, :max => 85},
+      {:color => "Orange", :min => 76, :max => 80},
+      {:color => "Conch", :min => 71, :max => 75},
+      {:color => "Caution", :min => 66, :max => 70},
+      {:color => "Semolina", :min => 61, :max => 65},
+      {:color => "Creme Brulee", :min => 56, :max => 60},
+      {:color => "Green Tea", :min => 51, :max => 55},
+      {:color => "Peapod", :min => 46, :max => 50},
+      {:color => "Grass", :min => 41, :max => 45},
+      {:color => "Everglade", :min => 36, :max => 40},
+      {:color => "Tranquil", :min => 31, :max => 35},
+      {:color => "Calypso", :min => 26, :max => 30},
+      {:color => "Whirlpool", :min => 21, :max => 25},
+      {:color => "Baltic", :min => 16, :max => 20},
+      {:color => "Fjord", :min => 11, :max => 15},
+      {:color => "Ciel", :min => 6, :max => 10},
+      {:color => "Celestial", :min => 1, :max => 5},
+      {:color => "Sapphire", :min => -4, :max => 0},
+      {:color => "Solstice", :min => -9, :max => -5},
+      {:color => "Lullaby", :min => -14, :max => -10},
+      {:color => "Amethyst", :min => -19, :max => -15},
+      {:color => "Indigo", :min => -24, :max => -20},
+      {:color => "Blackberry", :min => -29, :max => -25},
+      {:color => "Coal", :min => -1000, :max => -30},
     ]
 
+  def initialize
+    @@attributes.each do |row|
+      row.each do |key, value|
+        self.send(("#{key}="), value)
+    @@all << self
+      end
+    end
+  end
+
+  def self.all
+    @@all
+  end
+end
 
 # Need to fix this method. Not recognizing max_temp
-  def self.get_color
-    color = ""
-        @@color_chart.map do |color_row|
-            #  if ClimatePatternGenerator::Data.day.temperature.to_i >= color_row[1] && ClimatePatternGenerator::Data.day.temperature.to_i <= color_row[2]
-             if Day_data.all[-1].max_temp.to_i >= color_row[1] && Day_data.day[-1].max_temp.to_i <= color_row[2]
-            # if @temperature.to_i >= color_row[1] && @temperature.to_i <= color_row[2]
-              @color = "#{color_row[0]}"
-            end
-          end
-     @color
-   end
-
-end
+#   def self.get_color
+#     color = ""
+#         Color.all do |color_row|
+#             #  if ClimatePatternGenerator::Data.day.temperature.to_i >= color_row[1] && ClimatePatternGenerator::Data.day.temperature.to_i <= color_row[2]
+#              if Day_data.all[-1].max_temp.to_i >= color_row[1] && Day_data.day[-1].max_temp.to_i <= color_row[2]
+#             # if @temperature.to_i >= color_row[1] && @temperature.to_i <= color_row[2]
+#               @color = "#{color_row[0]}"
+#             end
+#           end
+#      @color
+#    end
+# end

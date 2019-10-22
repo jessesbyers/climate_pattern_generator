@@ -1,8 +1,9 @@
 class CLI
-  attr_accessor :year, :zip, :pattern, :data_attributes
+  attr_accessor :year, :zip, :pattern, :attributes
   @@search_terms = []
 
   def call
+    Color.new
     welcome
     get_search_terms
     options1
@@ -51,9 +52,9 @@ class CLI
         when "1"
           Day_data.all.clear
           puts "Please wait while we PREVIEW your pattern"
-          Day_data.new(data_attributes)
-          Day_data.all
-          binding.pry
+          Day_data.new(attributes)
+          # Day_data.all
+          # binding.pry
           # Day_data.first_day
           #
           # 2.times do
@@ -67,18 +68,18 @@ class CLI
             call
 
           when "3"
-            Day_data.all.clear
+            # Day_data.all.clear
             puts "Please wait while we generate your pattern"
-            first_day
-            if Day_data.leap?(self.year.to_i)
-              365.times do #365
-                scrape_print_day
-              end
-            else
-              364.times do  #364
-                scrape_print_day
-              end
-            end
+            # first_day
+            # if Day_data.leap?(self.year.to_i)
+            #   365.times do #365
+            #     scrape_print_day
+            #   end
+            # else
+            #   364.times do  #364
+            #     scrape_print_day
+            #   end
+            # end
             options2
 
           when "4"

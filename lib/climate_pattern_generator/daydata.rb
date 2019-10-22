@@ -3,23 +3,28 @@ class Day_data
     attr_reader :data_attributes
     @@year_data = []
 
-    def initialize(data_attributes)
-      zip = CLI.search_terms[0]
-      year = CLI.search_terms[1]
-      day = Scraper.new("https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-01")
-      sleep 4
-      @date = date
-      @url = url
-      @max_temp = max_temp
-      @min_temp = min_temp
-      @mean_temp = mean_temp
-      @precipitation = precipitation
-      @next_day_url = next_day_url
-      @color = color
-      @location_name = location_name
-      @weather_station = weather_station
-      @@year_data << day
+# does not recognize attributes - need to revise
+    def initialize(attributes)
+      attributes.each {|key, value| self.send(("#{key}="), value)}
     end
+
+    # def initialize(data_attributes)
+    #   zip = CLI.search_terms[0]
+    #   year = CLI.search_terms[1]
+    #   day = Scraper.new("https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-01")
+    #   sleep 4
+    #   @date = date
+    #   @url = url
+    #   @max_temp = max_temp
+    #   @min_temp = min_temp
+    #   @mean_temp = mean_temp
+    #   @precipitation = precipitation
+    #   @next_day_url = next_day_url
+    #   @color = color
+    #   @location_name = location_name
+    #   @weather_station = weather_station
+    #   @@year_data << day
+    # end
 
     def data_attributes
       Scraper.all

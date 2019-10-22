@@ -1,18 +1,21 @@
 # everything working except get_color
-# Scraper.all returns a list of attributes
-# Scraper.new returns a scraper object without any attributes attached yet
 
 class Scraper
+  attr_reader :next_day_url
   attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station
-  @@data_attributes = {}
+  @@all = []
 
   def initialize
     zip = CLI.search_terms[0]
     year = CLI.search_terms[1]
-    url = "https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-01"
+    if @@all == []
+      url = "https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-01"
+    else
+      url = Scraper.all.last.next_day_url
+    end
     html = open(url)
     doc = Nokogiri::HTML(html)
-    @@data_attributes = {
+    data_attributes = {
       :date => doc.css("div.print-no form").attr("action").value.split("/")[-1],
       :location_name => doc.css("h1").children[-1].text.strip.gsub("Weather History for ", ""),
       :weather_station => doc.css("h2.weatherhistory_results_station").text.strip.gsub("For the ", ""),
@@ -23,10 +26,12 @@ class Scraper
       :url => url,
       :next_day_url => "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
     }
+    data_attributes.each {|key, value| self.send(("#{key}="), value)}
+    @@all << self
   end
 
   def self.all
-    @@data_attributes
+    @@all
   end
 
   def self.clear

@@ -5,8 +5,6 @@ class CLI
   def call
     welcome
     get_search_terms
-    Scraper.new
-    binding.pry
     options1
     menu_loop
   end

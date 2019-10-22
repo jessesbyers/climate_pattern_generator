@@ -2,7 +2,7 @@ class Color
   attr_accessor :color, :min, :max
   @@all = []
 
-    @@attributes = [
+    @@colors = [
       {:color => "Currant", :min => 121, :max => 1000},
       {:color => "Garnet", :min => 116, :max => 120},
       {:color => "Rooibos", :min => 111, :max => 115},
@@ -34,14 +34,20 @@ class Color
       {:color => "Amethyst", :min => -19, :max => -15},
       {:color => "Indigo", :min => -24, :max => -20},
       {:color => "Blackberry", :min => -29, :max => -25},
-      {:color => "Coal", :min => -1000, :max => -30},
+      {:color => "Coal", :min => -1000, :max => -30}
     ]
 
-  def initialize
-    @@attributes.each do |row|
+
+  def self.colors
+    @@colors
+  end
+
+  def initialize(colors)
+    colors.each do |row|
       row.each do |key, value|
+        binding.pry
         self.send(("#{key}="), value)
-    @@all << self
+        @@all << self
       end
     end
   end
@@ -50,17 +56,3 @@ class Color
     @@all
   end
 end
-
-# Need to fix this method. Not recognizing max_temp
-#   def self.get_color
-#     color = ""
-#         Color.all do |color_row|
-#             #  if ClimatePatternGenerator::Data.day.temperature.to_i >= color_row[1] && ClimatePatternGenerator::Data.day.temperature.to_i <= color_row[2]
-#              if Day_data.all[-1].max_temp.to_i >= color_row[1] && Day_data.day[-1].max_temp.to_i <= color_row[2]
-#             # if @temperature.to_i >= color_row[1] && @temperature.to_i <= color_row[2]
-#               @color = "#{color_row[0]}"
-#             end
-#           end
-#      @color
-#    end
-# end

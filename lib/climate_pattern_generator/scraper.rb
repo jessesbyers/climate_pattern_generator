@@ -19,7 +19,6 @@ class Scraper
       :url => url,
       :next_day_url => "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
     }
-    binding.pry
   end
 
   def self.all
@@ -32,6 +31,8 @@ class Scraper
 
 # need to test method
   def get_color
+    colors = Color.colors
+    Color.new(colors)
     Color.all.each do |color|
       if max_temp.to_i >= color.min && max_temp.to_i <= color.max
         @color = color

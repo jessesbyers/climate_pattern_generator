@@ -3,7 +3,9 @@ class CLI
   @@search_terms = []
 
   def call
-    Color.new
+    colors = Color.colors
+    Color.new(colors)
+    binding.pry
     welcome
     get_search_terms
     options1
@@ -50,9 +52,10 @@ class CLI
       input = gets.strip
       case input
         when "1"
-          Day_data.all.clear
+          # Day_data.all.clear
+          Scraper.new
           puts "Please wait while we PREVIEW your pattern"
-          Day_data.new(attributes)
+          # Day_data.new(attributes)
           # Day_data.all
           # binding.pry
           # Day_data.first_day
@@ -83,7 +86,7 @@ class CLI
             options2
 
           when "4"
-            save_pattern
+            # save_pattern
             options2
 
           when "5"
@@ -107,9 +110,9 @@ class CLI
        puts "Thank you for using the Climate Pattern Generator"
      end
 
-     def save_pattern
-       self.pattern = []
-       self.pattern << Day_data.all
-       puts "You have saved your pattern for zip code #{self.zip}, year #{self.year}."
-     end
+    #  def save_pattern
+    #    self.pattern = []
+    #    self.pattern << Day_data.all
+    #    puts "You have saved your pattern for zip code #{self.zip}, year #{self.year}."
+    #  end
 end

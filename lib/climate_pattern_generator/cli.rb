@@ -1,10 +1,12 @@
-# need to put new class methods back into CLI class
+# all works
 
 class CLI
   attr_accessor :year, :zip, :pattern, :attributes
   @@search_terms = []
 
   def call
+    # Color.new
+    # binding.pry
     welcome
     get_search_terms
     options1

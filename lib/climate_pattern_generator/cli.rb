@@ -5,11 +5,10 @@ class CLI
   @@search_terms = []
 
   def call
+    Color.new
+    binding.pry
     welcome
     get_search_terms
-    Day_data.preview
-    binding.pry
-    Day_data.year
     options1
     menu_loop
   end

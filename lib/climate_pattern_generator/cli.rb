@@ -63,7 +63,7 @@ class CLI
     puts "2. Enter new search terms"
     puts "3. Continue printing full pattern"
     puts "4. Choose a day to see detailed weather information"
-    puts "5. Re-print full pattern"
+    puts "5. Return to full pattern"
     puts "Type a number to make your choice."
     puts "Type exit or back at any time."
   end

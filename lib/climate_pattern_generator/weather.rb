@@ -13,12 +13,12 @@ class Weather
     if Date.leap?(CLI.search_terms[1].to_i)
       7.times do    #366
         @@all << Scraper.new
-        sleep 4
+        # sleep 4
       end
     else
       6.times do    #365
         @@all << Scraper.new
-        sleep 4
+        # sleep 4
       end
     end
   end

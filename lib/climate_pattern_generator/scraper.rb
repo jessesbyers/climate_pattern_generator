@@ -34,7 +34,7 @@ class Scraper
   end
 
   def self.clear
-    @@data_attributes.clear
+    @@all.clear
   end
 
 # need to test method once Color.new(colors is working properly)

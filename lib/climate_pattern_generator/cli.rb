@@ -27,7 +27,7 @@ class CLI
     input = gets.strip.to_i
     Weather.all.each.with_index(1) do |day, i|
       if input == i
-        puts "Here is your weather snaphot: for #{day.date}"
+        puts "Here is your daily weather snaphot for: #{day.date}"
         puts "Date: #{day.date}"
         puts "Location: #{day.location_name}"
         puts "Weather Station: #{day.weather_station}"
@@ -61,6 +61,7 @@ class CLI
     puts "2. Enter new search terms"
     puts "3. Continue printing full pattern"
     puts "4. Choose a day to see detailed weather information"
+    puts "5. Re-print full pattern"
     puts "Type a number to make your choice."
     puts "Type exit or back at any time."
   end
@@ -90,7 +91,10 @@ class CLI
 
           when "4"
             choose_day
+            options2
 
+          when "5"
+            print_year
             options2
 
           when "exit"

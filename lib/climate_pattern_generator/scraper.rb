@@ -4,6 +4,7 @@ class Scraper
   attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station
   @@all = []
 
+# need to add error message if year/location is invalid
   def initialize
     zip = CLI.search_terms[0]
     year = CLI.search_terms[1]
@@ -14,6 +15,10 @@ class Scraper
     end
     html = open(url)
     doc = Nokogiri::HTML(html)
+    #
+    # if doc.css("p").first.text == "Weather history data is not available for the date you have selected."
+    #   puts "#{doc.css("p").first.text} Please try again."
+    # else
     data_attributes = {
       :date => doc.css("div.print-no form").attr("action").value.split("/")[-1],
       :location_name => doc.css("h1").children[-1].text.strip.gsub("Weather History for ", ""),
@@ -27,7 +32,8 @@ class Scraper
     }
     data_attributes.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
-  end
+  # end
+end
 
   def self.all
     @@all

@@ -8,14 +8,15 @@ class Weather
 
   def self.year
     Scraper.clear
-    self.clear
-    if Date.leap?(self.year.to_i)
-      366.times do
+    @@all.clear
+    # if Date.leap?(self.year.to_i)
+    if Date.leap?(CLI.search_terms[1].to_i)
+      7.times do    #366
         @@all << Scraper.new
         sleep 4
       end
     else
-      365.times do
+      6.times do    #365
         @@all << Scraper.new
         sleep 4
       end
@@ -24,7 +25,7 @@ class Weather
 
   def self.preview
     Scraper.clear
-    self.preview_clear
+    @@preview_all.clear
     5.times do
       @@preview_all << Scraper.new
       end
@@ -38,13 +39,13 @@ class Weather
     @@preview_all
   end
 
-  def self.clear
-    @@all.clear
-  end
-
-  def self.preview_clear
-    @@preview_all.clear
-  end
+  # def self.clear
+  #   @@all.clear
+  # end
+  #
+  # def self.preview_clear
+  #   @@preview_all.clear
+  # end
 end
 
 

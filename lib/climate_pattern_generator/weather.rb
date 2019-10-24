@@ -1,5 +1,5 @@
 class ClimatePatternGenerator::Weather
-  attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station
+  attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station, :temp_units, :precip_units
   @@all = []
   @@preview_all = []
 
@@ -14,7 +14,7 @@ class ClimatePatternGenerator::Weather
       end
     else
       # 365.times do #for full year
-      12.times do #for demo 
+      12.times do #for demo
         @@all << ClimatePatternGenerator::Scraper.new
         # sleep 4 #for full year
       end

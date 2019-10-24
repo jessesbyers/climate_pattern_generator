@@ -1,5 +1,5 @@
 class ClimatePatternGenerator::Scraper
-  attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station
+  attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station, :temp_units, :precip_units
   @@all = []
 
   def initialize
@@ -21,10 +21,11 @@ class ClimatePatternGenerator::Scraper
         :weather_station => doc.css("h2.weatherhistory_results_station").text.strip.gsub("For the ", ""),
         :max_temp => doc.css("table.weatherhistory_results td p span.value").children[2].text,
         :min_temp => doc.css("table.weatherhistory_results td p span.value").children[0].text,
-        :precipitation => doc.css("table.weatherhistory_results td p span.value").children[5].text,
+        :precipitation => doc.css("table.weatherhistory_results td p span.value").children[4].text,
         :mean_temp => doc.css("table.weatherhistory_results td p span.value").children[1].text,
-        :color => " ", #color.new methods not working yet
         :url => url,
+        :temp_units => doc.css("table.weatherhistory_results td p span.units").children[2].text,
+        :precip_units => doc.css("table.weatherhistory_results td p span.units").children[4].text,
         :next_day_url => "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
       }
       data_attributes.each {|key, value| self.send(("#{key}="), value)}

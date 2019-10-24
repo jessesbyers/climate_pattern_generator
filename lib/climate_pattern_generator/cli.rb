@@ -38,11 +38,11 @@ class ClimatePatternGenerator::CLI
         puts "        LOCATION:           #{day.location_name}"
         puts "        WEATHER STATION:    #{day.weather_station}"
         puts ""
-        puts "    MAXIMUM TEMPERATURE:    #{day.max_temp} degrees fahrenheit"
-        puts "    MINIMUM TEMPERATURE:    #{day.min_temp} degrees fahrenheit"
-        puts "    MEAN TEMPERATURE:       #{day.mean_temp} degrees fahrenheit"
+        puts "    MAXIMUM TEMPERATURE:    #{day.max_temp} #{day.temp_units}"
+        puts "    MINIMUM TEMPERATURE:    #{day.min_temp} #{day.temp_units}"
+        puts "    MEAN TEMPERATURE:       #{day.mean_temp} #{day.temp_units}"
         puts ""
-        puts "    TOTAL PRECIPITATION:    #{day.precipitation} inches"
+        puts "    TOTAL PRECIPITATION:    #{day.precipitation} #{day.precip_units}"
         puts ""
         puts "    DATA SOURCE:            The Old Farmer's Almanac"
         puts "                            #{day.url}"
@@ -174,7 +174,7 @@ class ClimatePatternGenerator::CLI
         else
           temp_spacer = ""
         end
-        puts "    ________   #{i}.       #{day.date}     #{temp_spacer}#{day.max_temp.to_i} deg. F         #{day.color}"
+        puts "    ________   #{i}.       #{day.date}     #{temp_spacer}#{day.max_temp.to_i} #{day.temp_units}              #{day.color}"
       end
     end
     puts ""
@@ -207,7 +207,7 @@ class ClimatePatternGenerator::CLI
         else
           temp_spacer = ""
         end
-        puts "    ________   #{row_spacer}#{i}.     #{day.date}       #{temp_spacer}#{day.max_temp.to_i} deg. F         #{day.color}"
+        puts "    ________   #{row_spacer}#{i}.     #{day.date}       #{temp_spacer}#{day.max_temp.to_i} #{day.temp_units}              #{day.color}"
       end
     end
     puts ""

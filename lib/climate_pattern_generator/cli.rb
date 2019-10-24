@@ -1,3 +1,4 @@
+# add spacer for temperature column on print_preview and print_year methods
 class CLI
   attr_accessor :year, :zip
   @@search_terms = []
@@ -10,62 +11,78 @@ class CLI
   end
 
   def get_search_terms
+    puts ""
     puts "SEARCH for daily weather data for a valid U.S. zip code, and a year between 1945 and the current year."
     @@search_terms.clear
+    puts ""
     puts "Enter a 5-digit zip code"
+    puts ""
     self.zip = gets.strip
+    puts ""
     puts "Enter a year"
+    puts ""
     self.year = gets.strip
     @@search_terms << self
   end
 
   def choose_day
+    puts ""
     puts "Choose a row number to see full daily weather information for that day"
+    puts ""
     input = gets.strip.to_i
     Weather.all.each.with_index(1) do |day, i|
       if input == i
+        puts ""
         puts "Here is your daily weather snaphot for: #{day.date}"
-        puts "Date: #{day.date}"
-        puts "Location: #{day.location_name}"
-        puts "Weather Station: #{day.weather_station}"
         puts ""
-        puts "Daily Maximum Temperature: #{day.max_temp} degrees Fahrenheit"
-        puts "Daily Minimum Temperature: #{day.min_temp} degrees Fahrenheit"
-        puts "Daily Mean Temperature: #{day.mean_temp} degrees Fahrenheit"
-        puts "Daily Total Precipitation: #{day.precipitation} inches"
+        puts "DATE: #{day.date}"
+        puts "LOCATION: #{day.location_name}"
+        puts "WEATHER STATION: #{day.weather_station}"
         puts ""
-        puts "Data Source: This data was scraped from The Old Farmer's Almanac at #{day.url}"
+        puts "DAILY MAXIMUM TEMPERATURE: #{day.max_temp} degrees fahrenheit"
+        puts "DAILY MINIMUM TEMPERATURE: #{day.min_temp} degrees fahrenheit"
+        puts "DAILY MEAN TEMPERATURE: #{day.mean_temp} degrees fahrenheit"
+        puts ""
+        puts "DAILY TOTAL PRECIPITATION: #{day.precipitation} inches"
+        puts ""
+        puts "DATA SOURCE: This data was scraped from The Old Farmer's Almanac at #{day.url}"
+        puts ""
       end
     end
   end
 
-  def self.search_terms
-    @@search_terms
-  end
-
   def options1
+    puts ""
     puts "What would you like to do?"
+    puts ""
     puts "P. PREVIEW pattern"
     puts "S. SEARCH for a new year and zip code"
-    puts "Type a letter to make your choice."
-    puts "Type exit or back at any time."
+    puts ""
+    puts "Type a letter to make your choice. Type EXIT at any time."
+    puts ""
   end
 
   def options2
+    puts ""
     puts "What would you like to do?"
+    puts ""
     puts "C. CREATE and print full pattern"
     puts "S. SEARCH for a new year and zip code"
-    puts "Type a letter to make your choice."
-    puts "Type exit or back at any time."
+    puts ""
+    puts "Type a letter to make your choice. Type EXIT at any time."
+    puts ""
   end
 
   def options3
+    puts ""
     puts "What would you like to do?"
+    puts ""
     puts "V. VIEW detailed daily weather information"
     puts "R. RE-PRINT full pattern"
     puts "S. SEARCH for a new year and zip code"
-    puts "Type a letter to make your choice."
-    puts "Type exit or back at any time."
+    puts ""
+    puts "Type a letter to make your choice. Type EXIT at any time."
+    puts ""
   end
 
   def menu_loop
@@ -74,15 +91,19 @@ class CLI
       input = gets.strip.upcase
       case input
         when "P" || "p"
+          puts ""
           puts "Please wait while we PREVIEW your pattern"
+          puts ""
           Weather.preview
           if Weather.preview_all[0].date == nil
             puts ""
             puts "ERROR: Please try again. Weather history data is not available for the date and location you have selected."
-            puts " "
+            puts ""
           else
             print_preview
+            puts ""
             puts "If this preview looks correct, choose C to create a pattern for the entire year"
+            puts ""
           end
           options2
 
@@ -91,8 +112,11 @@ class CLI
           options1
 
         when "C" || "c"
+          puts ""
           puts "Please wait about 20 minutes while we CREATE your pattern"
+          puts ""
           puts "While you are waiting, learn more about the Tempestry Project by watching this video: https://youtu.be/30nG81Fu7yg"
+          puts ""
           Weather.year
           print_year
           options3
@@ -115,32 +139,51 @@ class CLI
      end
 
   def welcome
+    puts ""
     puts "Welcome to the Climate Pattern Generator"
+    puts ""
   end
 
   def goodbye
+    puts ""
     puts "Thank you for using the Climate Pattern Generator"
+    puts ""
+  end
+
+  def self.search_terms
+    @@search_terms
   end
 
   def print_preview
     if Scraper.all == nil
+      puts ""
       puts "ERROR: Please try again. Weather history data is not available for the date and location you have selected."
+      puts ""
       get_search_terms
     else
+      puts ""
       puts "Here is your daily maximum temperature data for #{Weather.preview_all[0].location_name}."
+      puts ""
       puts "Complete?  Row #    Date           Max Temperature    Yarn Color"
+      puts ""
       Weather.preview_all.each.with_index(1) do |day, i|
         puts "________   #{i}.       #{day.date}     #{day.max_temp} deg. F        #{day.color}"
       end
     end
+    puts ""
   end
 
   def print_year
+    puts ""
     puts "Here is your complete knitting pattern for #{Weather.all[0].location_name}."
+    puts ""
     puts "Complete?  Row #    Date             Max Temperature    Yarn Color"
+    puts ""
     Weather.all.each.with_index(1) do |day, i|
       if Scraper.all == nil
+        puts ""
         puts "ERROR: Please try again. Weather history data is not available for the date and location you have selected."
+        puts ""
         get_search_terms
       else
         if i.between?(1, 9)
@@ -153,5 +196,6 @@ class CLI
         puts "________   #{spacer}#{i}.     #{day.date}       #{day.max_temp} deg. F        #{day.color}"
       end
     end
+    puts ""
   end
 end

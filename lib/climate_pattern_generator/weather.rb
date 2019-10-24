@@ -10,13 +10,13 @@ class Weather
       # 366.times do
       13.times do
         @@all << Scraper.new
-        sleep 4
+        # sleep 4
       end
     else
       # 365.times do
       12.times do
         @@all << Scraper.new
-        sleep 4
+        # sleep 4
       end
     end
   end

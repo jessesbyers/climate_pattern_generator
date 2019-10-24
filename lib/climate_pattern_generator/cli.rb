@@ -1,5 +1,4 @@
-# add spacer for temperature column on print_preview and print_year methods
-class CLI
+class ClimatePatternGenerator::CLI
   attr_accessor :year, :zip
   @@search_terms = []
 
@@ -30,7 +29,7 @@ class CLI
     puts "Choose a row number to see full daily weather information for that day"
     puts ""
     input = gets.strip.to_i
-    Weather.all.each.with_index(1) do |day, i|
+    ClimatePatternGenerator::Weather.all.each.with_index(1) do |day, i|
       if input == i
         puts ""
         puts "        Here is your daily weather snapshot"
@@ -95,8 +94,8 @@ class CLI
           puts ""
           puts "Please wait while we PREVIEW your pattern"
           puts ""
-          Weather.preview
-          if Weather.preview_all[0].date == nil
+          ClimatePatternGenerator::Weather.preview
+          if ClimatePatternGenerator::Weather.preview_all[0].date == nil
             puts ""
             puts "  ERROR: Please try again. Weather history data is not available for the date and location you have selected."
             puts ""
@@ -118,7 +117,7 @@ class CLI
           puts ""
           puts "While you are waiting, learn more about the Tempestry Project by watching this video: https://youtu.be/30nG81Fu7yg"
           puts ""
-          Weather.year
+          ClimatePatternGenerator::Weather.year
           print_year
           options3
 
@@ -156,18 +155,18 @@ class CLI
   end
 
   def print_preview
-    if Scraper.all == nil
+    if ClimatePatternGenerator::Scraper.all == nil
       puts ""
       puts "  ERROR: Please try again. Weather history data is not available for the date and location you have selected."
       puts ""
       get_search_terms
     else
       puts ""
-      puts "    Here is your daily maximum temperature data for #{Weather.preview_all[0].location_name}."
+      puts "    Here is your daily maximum temperature data for #{ClimatePatternGenerator::Weather.preview_all[0].location_name}."
       puts ""
       puts "    Complete?  Row #    Date           Max Temperature    Yarn Color"
       puts ""
-      Weather.preview_all.each.with_index(1) do |day, i|
+      ClimatePatternGenerator::Weather.preview_all.each.with_index(1) do |day, i|
         if day.max_temp.to_i.between?(1, 9)
           temp_spacer = "  "
         elsif day.max_temp.to_i.between?(10, 99) || day.max_temp.to_i.between?(-9, -1)
@@ -183,12 +182,12 @@ class CLI
 
   def print_year
     puts ""
-    puts "    Here is your complete knitting pattern for #{Weather.all[0].location_name}."
+    puts "    Here is your complete knitting pattern for #{ClimatePatternGenerator::Weather.all[0].location_name}."
     puts ""
     puts "    Complete?  Row #    Date             Max Temperature    Yarn Color"
     puts ""
-    Weather.all.each.with_index(1) do |day, i|
-      if Scraper.all == nil
+    ClimatePatternGenerator::Weather.all.each.with_index(1) do |day, i|
+      if ClimatePatternGenerator::Scraper.all == nil
         puts ""
         puts "  ERROR: Please try again. Weather history data is not available for the date and location you have selected."
         puts ""

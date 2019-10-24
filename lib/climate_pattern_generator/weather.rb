@@ -7,14 +7,14 @@ class Weather
     Scraper.clear
     @@all.clear
     if Date.leap?(CLI.search_terms[0].year.to_i)
-      366.times do
-      # 7.times do
+      # 366.times do
+      13.times do
         @@all << Scraper.new
         sleep 4
       end
     else
-      365.times do
-      # 6.times do
+      # 365.times do
+      12.times do
         @@all << Scraper.new
         sleep 4
       end

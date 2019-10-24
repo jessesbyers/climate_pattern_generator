@@ -1,10 +1,8 @@
 # get_color working from hash, but not Color objects
-
 class Scraper
   attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station
   @@all = []
 
-# need to add error message if year/location is invalid
   def initialize
     zip = CLI.search_terms[0].zip
     year = CLI.search_terms[0].year
@@ -15,27 +13,26 @@ class Scraper
     end
     html = open(url)
     doc = Nokogiri::HTML(html)
-    #
-    # if doc.css("p").first.text == "Weather history data is not available for the date you have selected."
-    #   puts "#{doc.css("p").first.text} Please try again."
-    # else
-    data_attributes = {
-      :date => doc.css("div.print-no form").attr("action").value.split("/")[-1],
-      :location_name => doc.css("h1").children[-1].text.strip.gsub("Weather History for ", ""),
-      :weather_station => doc.css("h2.weatherhistory_results_station").text.strip.gsub("For the ", ""),
-      :max_temp => doc.css("table.weatherhistory_results td p span.value").children[2].text,
-      :min_temp => doc.css("table.weatherhistory_results td p span.value").children[0].text,
-      :precipitation => doc.css("table.weatherhistory_results td p span.value").children[5].text,
-      :mean_temp => doc.css("table.weatherhistory_results td p span.value").children[1].text,
-      :color => " ", #color.new methods not working yet
-      :url => url,
-      :next_day_url => "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
-    }
-    data_attributes.each {|key, value| self.send(("#{key}="), value)}
-    self.color = get_color
-    @@all << self
-  # end
-end
+    if doc.css("p").first.text == "Weather history data is not available for the date you have selected."
+      data_attributes = {}
+    else
+      data_attributes = {
+        :date => doc.css("div.print-no form").attr("action").value.split("/")[-1],
+        :location_name => doc.css("h1").children[-1].text.strip.gsub("Weather History for ", ""),
+        :weather_station => doc.css("h2.weatherhistory_results_station").text.strip.gsub("For the ", ""),
+        :max_temp => doc.css("table.weatherhistory_results td p span.value").children[2].text,
+        :min_temp => doc.css("table.weatherhistory_results td p span.value").children[0].text,
+        :precipitation => doc.css("table.weatherhistory_results td p span.value").children[5].text,
+        :mean_temp => doc.css("table.weatherhistory_results td p span.value").children[1].text,
+        :color => " ", #color.new methods not working yet
+        :url => url,
+        :next_day_url => "https://www.almanac.com" + doc.css("td.nextprev_next a").attribute("href").value
+      }
+      data_attributes.each {|key, value| self.send(("#{key}="), value)}
+      self.color = get_color
+      @@all << self
+    end
+  end
 
   def self.all
     @@all
@@ -80,13 +77,13 @@ def get_color
     ["Blackberry", -29, -25],
     ["Coal", -1000, -30]
   ]
-      color_chart.map do |color_row|
-          if self.max_temp.to_i >= color_row[1] && self.max_temp.to_i <= color_row[2]
-            self.color = "#{color_row[0]}"
-          end
-        end
+    color_chart.map do |color_row|
+      if self.max_temp.to_i >= color_row[1] && self.max_temp.to_i <= color_row[2]
+        self.color = "#{color_row[0]}"
+      end
+    end
    self.color
- end
+  end
 end
 
 # need to revise method once Color.new(colors is working properly)

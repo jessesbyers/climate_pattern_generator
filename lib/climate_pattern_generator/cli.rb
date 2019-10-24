@@ -1,12 +1,8 @@
-# all works
-
 class CLI
   attr_accessor :year, :zip
   @@search_terms = []
 
   def call
-    # Color.new
-    # binding.pry
     welcome
     get_search_terms
     options1
@@ -80,8 +76,15 @@ class CLI
         when "P" || "p"
           puts "Please wait while we PREVIEW your pattern"
           Weather.preview
-          print_preview
-          puts "If this preview looks correct, choose C to create a pattern for the entire year"
+          if Weather.preview_all[0].date == nil
+            puts ""
+            puts "ERROR: Please try again. Weather history data is not available for the date and location you have selected."
+            puts " "
+            # get_search_terms
+          else
+            print_preview
+            puts "If this preview looks correct, choose C to create a pattern for the entire year"
+          end
           options2
 
         when "S" || "s"
@@ -112,37 +115,37 @@ class CLI
        end
      end
 
-     def welcome
-       puts "Welcome to the Climate Pattern Generator"
-     end
+  def welcome
+    puts "Welcome to the Climate Pattern Generator"
+  end
 
-     def goodbye
-       puts "Thank you for using the Climate Pattern Generator"
-     end
+  def goodbye
+    puts "Thank you for using the Climate Pattern Generator"
+  end
 
-     def print_preview
-       puts "Here is your daily maximum temperature data for zip code #{CLI.search_terms[0].zip}, year #{CLI.search_terms[0].year}."
-       puts "Complete?  Row #      Date         Max Temperature    Yarn Color"
-       Weather.preview_all.each.with_index(1) do |day, i|
-         if Scraper.all == nil
-           puts "Please try again. Enter a valid zip code and any year between 1945 and the current year."
-           get_search_terms
-         else
-           puts "________   #{i}.         #{day.date}   #{day.max_temp} deg. F        #{day.color}"
-         end
-       end
-     end
+  def print_preview
+    if Scraper.all == nil
+      puts "ERROR: Please try again. Weather history data is not available for the date and location you have selected."
+      get_search_terms
+    else
+      puts "Here is your daily maximum temperature data for #{Weather.preview_all[0].location_name}."
+      puts "Complete?  Row #      Date         Max Temperature    Yarn Color"
+      Weather.preview_all.each.with_index(1) do |day, i|
+        puts "________   #{i}.         #{day.date}   #{day.max_temp} deg. F        #{day.color}"
+      end
+    end
+  end
 
-     def print_year
-       puts "Here is your daily maximum temperature data for zip code #{CLI.search_terms[0].zip}, year #{CLI.search_terms[0].year}."
-       puts "Complete?  Row #      Date         Max Temperature    Yarn Color"
-       Weather.all.each.with_index(1) do |day, i|
-         if Scraper.all == nil
-           puts "Please try again. Enter a valid zip code and any year between 1945 and the current year."
-           get_search_terms
-         else
-           puts "________   #{i}.         #{day.date}   #{day.max_temp} deg. F        #{day.color}"
-         end
-       end
-     end
+  def print_year
+    puts "Here is your daily maximum temperature data for #{Weather.all[0].location_name}."
+    puts "Complete?  Row #      Date         Max Temperature    Yarn Color"
+    Weather.all.each.with_index(1) do |day, i|
+      if Scraper.all == nil
+        puts "ERROR: Please try again. Weather history data is not available for the date and location you have selected."
+        get_search_terms
+      else
+        puts "________   #{i}.         #{day.date}   #{day.max_temp} deg. F        #{day.color}"
+      end
+    end
+  end
 end

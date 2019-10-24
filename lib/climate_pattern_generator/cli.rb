@@ -1,8 +1,10 @@
 # all works
 
 class CLI
-  attr_accessor :year, :zip, :pattern, :attributes
+  attr_accessor :year, :zip
+
   @@search_terms = []
+
 
   def call
     # Color.new
@@ -13,19 +15,19 @@ class CLI
     menu_loop
   end
 
+
   def get_search_terms
     puts "Enter a a valid U.S. zip code, and a year between 1945 and the current year."
     @@search_terms.clear
     puts "Enter a zip code"
-      self.zip = gets.strip
-      @@search_terms << self.zip
+    self.zip = gets.strip
     puts "Enter a year"
-      self.year = gets.strip
-      @@search_terms << self.year
+    self.year = gets.strip
+    @@search_terms << self
   end
 
   def choose_day
-    puts "Choose a row number to see full weather info for that day"
+    puts "Choose a row number to see full weather information for that day"
     input = gets.strip.to_i
     Weather.all.each.with_index(1) do |day, i|
       if input == i
@@ -34,10 +36,10 @@ class CLI
         puts "Location: #{day.location_name}"
         puts "Weather Station: #{day.weather_station}"
         puts ""
-        puts "Daily Maximum Temperature: #{day.max_temp}"
-        puts "Daily Minimum Temperature: #{day.min_temp}"
-        puts "Daily Mean Temperature: #{day.mean_temp}"
-        puts "Daily Total Precipitation: #{day.precipitation}"
+        puts "Daily Maximum Temperature: #{day.max_temp} degrees Fahrenheit"
+        puts "Daily Minimum Temperature: #{day.min_temp} degrees Fahrenheit"
+        puts "Daily Mean Temperature: #{day.mean_temp} degrees Fahrenheit"
+        puts "Daily Total Precipitation: #{day.precipitation} inches"
         puts ""
         puts "Data Source: This data was scraped from The Old Farmer's Almanac at #{day.url}"
       end
@@ -117,7 +119,7 @@ class CLI
      end
 
      def print_preview
-       puts "Here is your daily maximum temperature data for zip code #{CLI.search_terms[0]}, year #{CLI.search_terms[1]}."
+       puts "Here is your daily maximum temperature data for zip code #{CLI.search_terms[0].zip}, year #{CLI.search_terms[0].year}."
        puts "Complete?  Row #      Date         Max Temperature    Yarn Color"
        Weather.preview_all.each.with_index(1) do |day, i|
          if Scraper.all == nil
@@ -130,7 +132,7 @@ class CLI
      end
 
      def print_year
-       puts "Here is your daily maximum temperature data for zip code #{CLI.search_terms[0]}, year #{CLI.search_terms[1]}."
+       puts "Here is your daily maximum temperature data for zip code #{CLI.search_terms[0].zip}, year #{CLI.search_terms[0].year}."
        puts "Complete?  Row #      Date         Max Temperature    Yarn Color"
        Weather.all.each.with_index(1) do |day, i|
          if Scraper.all == nil

@@ -6,8 +6,8 @@ class Scraper
 
 # need to add error message if year/location is invalid
   def initialize
-    zip = CLI.search_terms[0]
-    year = CLI.search_terms[1]
+    zip = CLI.search_terms[0].zip
+    year = CLI.search_terms[0].year
     if @@all == []
       url = "https://www.almanac.com/weather/history/zipcode/#{zip}/#{year}-01-01"
     else
@@ -25,6 +25,7 @@ class Scraper
       :weather_station => doc.css("h2.weatherhistory_results_station").text.strip.gsub("For the ", ""),
       :max_temp => doc.css("table.weatherhistory_results td p span.value").children[2].text,
       :min_temp => doc.css("table.weatherhistory_results td p span.value").children[0].text,
+      :precipitation => doc.css("table.weatherhistory_results td p span.value").children[5].text,
       :mean_temp => doc.css("table.weatherhistory_results td p span.value").children[1].text,
       :color => " ", #color.new methods not working yet
       :url => url,

@@ -1,4 +1,4 @@
-# not working - initialize creates 32 objects of the same color
+# not working at all, not connected to rest of code - initialize creates 32 objects of the same color
 
 class Color
   attr_accessor :color, :min, :max

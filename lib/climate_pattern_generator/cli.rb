@@ -2,9 +2,7 @@
 
 class CLI
   attr_accessor :year, :zip
-
   @@search_terms = []
-
 
   def call
     # Color.new
@@ -15,11 +13,10 @@ class CLI
     menu_loop
   end
 
-
   def get_search_terms
-    puts "Enter a a valid U.S. zip code, and a year between 1945 and the current year."
+    puts "SEARCH for daily weather data for a valid U.S. zip code, and a year between 1945 and the current year."
     @@search_terms.clear
-    puts "Enter a zip code"
+    puts "Enter a 5-digit zip code"
     self.zip = gets.strip
     puts "Enter a year"
     self.year = gets.strip
@@ -27,7 +24,7 @@ class CLI
   end
 
   def choose_day
-    puts "Choose a row number to see full weather information for that day"
+    puts "Choose a row number to see full daily weather information for that day"
     input = gets.strip.to_i
     Weather.all.each.with_index(1) do |day, i|
       if input == i
@@ -43,9 +40,8 @@ class CLI
         puts ""
         puts "Data Source: This data was scraped from The Old Farmer's Almanac at #{day.url}"
       end
-   end
+    end
   end
-
 
   def self.search_terms
     @@search_terms
@@ -53,60 +49,66 @@ class CLI
 
   def options1
     puts "What would you like to do?"
-    puts "1. Preview pattern"
-    puts "2. Enter new search terms"
-    puts "Type a number to make your choice."
+    puts "P. PREVIEW pattern"
+    puts "S. SEARCH for a new year and zip code"
+    puts "Type a letter to make your choice."
     puts "Type exit or back at any time."
   end
 
   def options2
     puts "What would you like to do?"
-    puts "1. Preview pattern"
-    puts "2. Enter new search terms"
-    puts "3. Continue printing full pattern"
-    puts "4. Choose a day to see detailed weather information"
-    puts "5. Return to full pattern"
-    puts "Type a number to make your choice."
+    puts "C. CREATE and print full pattern"
+    puts "S. SEARCH for a new year and zip code"
+    puts "Type a letter to make your choice."
+    puts "Type exit or back at any time."
+  end
+
+  def options3
+    puts "What would you like to do?"
+    puts "V. VIEW detailed daily weather information"
+    puts "R. RE-PRINT full pattern"
+    puts "S. SEARCH for a new year and zip code"
+    puts "Type a letter to make your choice."
     puts "Type exit or back at any time."
   end
 
   def menu_loop
     input = nil
-    while input != "exit"
-      input = gets.strip
+    while input != "EXIT" && input != "exit"
+      input = gets.strip.upcase
       case input
-        when "1"
+        when "P" || "p"
           puts "Please wait while we PREVIEW your pattern"
           Weather.preview
           print_preview
-          puts "If this preview looks correct, choose 3 to create a pattern for the entire year"
+          puts "If this preview looks correct, choose C to create a pattern for the entire year"
           options2
 
-          when "2"
-            get_search_terms
-            options1
+        when "S" || "s"
+          get_search_terms
+          options1
 
-          when "3"
-            puts "Please wait about 20 minutes while we generate your pattern"
-            puts "While you are waiting, learn more about the Tempestry Project by watching this video: https://youtu.be/30nG81Fu7yg"
-            Weather.year
-            print_year
-            options2
+        when "C" || "c"
+          puts "Please wait about 20 minutes while we CREATE your pattern"
+          puts "While you are waiting, learn more about the Tempestry Project by watching this video: https://youtu.be/30nG81Fu7yg"
+          Weather.year
+          print_year
+          options3
 
-          when "4"
-            choose_day
-            options2
+        when "V" || "v"
+          choose_day
+          options3
 
-          when "5"
-            print_year
-            options2
+        when "R" || "r"
+          print_year
+          options3
 
-          when "exit"
-            goodbye
+        when "EXIT" || "exit"
+          goodbye
 
-          else
-            options1
-          end
+        else
+          options1
+        end
        end
      end
 

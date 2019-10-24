@@ -30,7 +30,10 @@ class ClimatePatternGenerator::Scraper
       }
       data_attributes.each {|key, value| self.send(("#{key}="), value)}
       self.color = get_color
+      convert_temp
+      convert_depth
       @@all << self
+      binding.pry
     end
   end
 
@@ -42,12 +45,30 @@ class ClimatePatternGenerator::Scraper
     @@all.clear
   end
 
-def get_color
+  def get_color
     ClimatePatternGenerator::Color.all.each do |color_row|
       if self.max_temp.to_i >= color_row.min && self.max_temp.to_i <= color_row.max
-        self.color = color_row.color  #{}"#{color_row.color}"
+        self.color = color_row.color
       end
     end
    self.color
   end
+
+  def convert_temp
+    if self.temp_units == "°C"
+      self.max_temp = self.max_temp.to_f * 1.8 + 32
+      self.min_temp = self.min_temp.to_f * 1.8 + 32
+      self.min_temp = self.min_temp.to_f * 1.8 + 32
+      self.temp_units = "°F"
+    end
+  end
+
+  def convert_depth
+    if self.precip_units == "cm"
+      self.precipitation = self.precipitation.to_f / 2.54
+      self.precip_units = "IN"
+    end
+  end
+
+
 end

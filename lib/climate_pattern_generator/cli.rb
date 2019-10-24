@@ -167,7 +167,7 @@ class ClimatePatternGenerator::CLI
       puts "    Complete?  Row #    Date           Max Temperature    Yarn Color"
       puts ""
       ClimatePatternGenerator::Weather.preview_all.each.with_index(1) do |day, i|
-        if day.max_temp.to_i.between?(1, 9)
+        if day.max_temp.to_i.between?(0, 9)
           temp_spacer = "  "
         elsif day.max_temp.to_i.between?(10, 99) || day.max_temp.to_i.between?(-9, -1)
           temp_spacer = " "
@@ -200,7 +200,7 @@ class ClimatePatternGenerator::CLI
         else
           row_spacer = ""
         end
-        if day.max_temp.to_i.between?(1, 9)
+        if day.max_temp.to_i.between?(0, 9)
           temp_spacer = "  "
         elsif day.max_temp.to_i.between?(10, 99) || day.max_temp.to_i.between?(-9, -1)
           temp_spacer = " "

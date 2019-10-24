@@ -167,7 +167,7 @@ class CLI
       puts "Complete?  Row #    Date           Max Temperature    Yarn Color"
       puts ""
       Weather.preview_all.each.with_index(1) do |day, i|
-        puts "________   #{i}.       #{day.date}     #{day.max_temp} deg. F        #{day.color}"
+        puts "________   #{i}.       #{day.date}     #{day.max_temp.to_i} deg. F          #{day.color}"
       end
     end
     puts ""
@@ -187,13 +187,20 @@ class CLI
         get_search_terms
       else
         if i.between?(1, 9)
-          spacer = "  "
+          row_spacer = "  "
         elsif i.between?(10, 99)
-          spacer = " "
+          row_spacer = " "
         else
-          spacer = ""
+          row_spacer = ""
         end
-        puts "________   #{spacer}#{i}.     #{day.date}       #{day.max_temp} deg. F        #{day.color}"
+        if day.max_temp.to_i.between?(1, 9)
+          temp_spacer = "  "
+        elsif day.max_temp.to_i.between?(10, 99) || day.max_temp.to_i.between?(-9, -1)
+          temp_spacer = " "
+        else
+          temp_spacer = ""
+        end
+        puts "________   #{row_spacer}#{i}.     #{day.date}       #{temp_spacer}#{day.max_temp.to_i} deg. F         #{day.color}"
       end
     end
     puts ""

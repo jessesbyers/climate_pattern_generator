@@ -19,10 +19,10 @@ class ClimatePatternGenerator::Scraper
         :date => doc.css("div.print-no form").attr("action").value.split("/")[-1],
         :location_name => doc.css("h1").children[-1].text.strip.gsub("Weather History for ", ""),
         :weather_station => doc.css("h2.weatherhistory_results_station").text.strip.gsub("For the ", ""),
-        :max_temp => doc.css("table.weatherhistory_results td p span.value").children[2].text,
-        :min_temp => doc.css("table.weatherhistory_results td p span.value").children[0].text,
-        :precipitation => doc.css("table.weatherhistory_results td p span.value").children[4].text,
-        :mean_temp => doc.css("table.weatherhistory_results td p span.value").children[1].text,
+        :max_temp => doc.css("table.weatherhistory_results td p span.value").children[2].text.to_f,
+        :min_temp => doc.css("table.weatherhistory_results td p span.value").children[0].text.to_f,
+        :precipitation => doc.css("table.weatherhistory_results td p span.value").children[4].text.to_f,
+        :mean_temp => doc.css("table.weatherhistory_results td p span.value").children[1].text.to_f,
         :url => url,
         :temp_units => doc.css("table.weatherhistory_results td p span.units").children[2].text,
         :precip_units => doc.css("table.weatherhistory_results td p span.units").children[4].text,
@@ -33,7 +33,6 @@ class ClimatePatternGenerator::Scraper
       convert_temp
       convert_depth
       @@all << self
-      binding.pry
     end
   end
 
@@ -56,19 +55,17 @@ class ClimatePatternGenerator::Scraper
 
   def convert_temp
     if self.temp_units == "°C"
-      self.max_temp = self.max_temp.to_f * 1.8 + 32
-      self.min_temp = self.min_temp.to_f * 1.8 + 32
-      self.min_temp = self.min_temp.to_f * 1.8 + 32
+      self.max_temp = ((self.max_temp * 1.8) + 32).round(1)
+      self.min_temp = ((self.min_temp * 1.8) + 32).round(1)
+      self.min_temp = ((self.min_temp * 1.8) + 32).round(1)
       self.temp_units = "°F"
     end
   end
 
   def convert_depth
     if self.precip_units == "cm"
-      self.precipitation = self.precipitation.to_f / 2.54
+      self.precipitation = (self.precipitation / 2.54).round(2)
       self.precip_units = "IN"
     end
   end
-
-
 end

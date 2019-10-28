@@ -32,7 +32,7 @@ class ClimatePatternGenerator::CLI
     ClimatePatternGenerator::Weather.all.each.with_index(1) do |day, i|
       if input == i
         puts ""
-        puts "        Here is your daily temperature snapshot"
+        puts "        Here is your daily weather snapshot"
         puts ""
         puts "        DATE:               #{day.date}"
         puts "        LOCATION:           #{day.location_name}"
@@ -44,6 +44,7 @@ class ClimatePatternGenerator::CLI
         puts ""
         puts ""
         puts "    PRECIPITATION:          #{day.precipitation}"
+        puts ""
         puts "        DATA SOURCE:        The Old Farmer's Almanac"
         puts "                            #{day.url}"
         puts ""
@@ -142,6 +143,9 @@ class ClimatePatternGenerator::CLI
     puts ""
     puts "Welcome to the Climate Pattern Generator"
     puts ""
+    puts "The Climate Pattern Generator will create a custom knitting or crochet pattern based on the daily maximum temperature for a year."
+    puts "Each yarn color represents a 5-degree range of temperature."
+    puts ""
   end
 
   def goodbye
@@ -167,12 +171,10 @@ class ClimatePatternGenerator::CLI
       puts "    Complete?  Row #    Date           Max Temperature    Yarn Color"
       puts ""
       ClimatePatternGenerator::Weather.preview_all.each.with_index(1) do |day, i|
-        if day.max_temp.between?(0, 9)
+        if day.max_temp.to_f.round.between?(0, 9)
           temp_spacer = "  "
-        elsif day.max_temp.between?(10, 99) || day.max_temp.between?(-9, -1)
+        elsif day.max_temp.to_f.round.between?(10, 99) || day.max_temp.between?(-9, -1)
           temp_spacer = " "
-        elsif day.max_temp == "No data."
-          temp_spacer = ""
         else
           temp_spacer = ""
         end
@@ -202,9 +204,9 @@ class ClimatePatternGenerator::CLI
         else
           row_spacer = ""
         end
-        if day.max_temp.to_i.between?(0, 9)
+        if day.max_temp.to_f.round.between?(0, 9)
           temp_spacer = "  "
-        elsif day.max_temp.to_i.between?(10, 99) || day.max_temp.to_i.between?(-9, -1)
+        elsif day.max_temp.to_f.round.between?(10, 99) || day.max_temp.to_i.between?(-9, -1)
           temp_spacer = " "
         else
           temp_spacer = ""

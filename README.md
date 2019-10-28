@@ -1,14 +1,15 @@
 # ClimatePatternGenerator
 
-The Climate Pattern Generator was designed to automatically generate patterns for knitting or crocheting climate data. 
+The Climate Pattern Generator was designed to automatically generate patterns for knitting or crocheting climate data.
 
 Users input a zip code and a year, and the program scrapes the daily maximum temperature for that year, and converts that temperature to the corresponding color for representing that temperature in a fiber arts project.
 
-Users can also view a more detailed daily weaher summary for each day of the year after viewing the pattern.
+Users can also view a more detailed daily weather summary for each day of the year after viewing the pattern.
 
 See The Tempestry Project for examples and more details:
     https://www.tempestryproject.com
-Weather data is from the National Climatic Data Center, scraped via the Old Farmer's Almanac:              
+
+Weather data derived from the National Climatic Data Center, scraped via the Old Farmer's Almanac:              
     https://www.almanac.com/weather/history
 
 
@@ -30,10 +31,12 @@ Or install it yourself as:
 
 ## Usage
 
-The full version of this gem takes approximately 20 minutes to scrape a full year's worth of weather data.
+NOTE: The full version of this gem takes approximately 20 minutes to scrape a full year's worth of weather data.
 
 Use the Demo Version (v2) to explore all features of the program with a smaller amount of data.
-    After installation, type $ git checkout v2 to use the demo version.
+    After installation
+
+    $ git checkout v2
 
 ## Development
 

@@ -55,14 +55,19 @@ class ClimatePatternGenerator::Scraper
   end
 
   def convert_temp
-    if self.temp_units == "°C" && self.max_temp != "No data."
+    if self.max_temp == "No data."
+      self.max_temp = "No data available"
+      self.min_temp = "No data available"
+      self.mean_temp = "No data available"
+      self.precipitation = "No data available"
+      self.temp_units = ""
+      self.color = ""
+    end
+    if self.temp_units == "°C"
       self.max_temp = ((self.max_temp.to_f * 1.8) + 32).round
       self.min_temp = ((self.min_temp.to_f * 1.8) + 32).round
-      self.min_temp = ((self.min_temp.to_f * 1.8) + 32).round
+      self.mean_temp = ((self.mean_temp.to_f * 1.8) + 32).round
       self.temp_units = "°F"
-    elsif self.max_temp == "No data."
-      self.temp_units = ""
-      self.color = "No data."
     end
   end
 end

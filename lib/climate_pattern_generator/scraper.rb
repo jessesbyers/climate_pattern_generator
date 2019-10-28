@@ -27,10 +27,9 @@ class ClimatePatternGenerator::Scraper
         :min_temp => doc.css("table.weatherhistory_results tr.weatherhistory_results_datavalue td p").children[0].text,
         :mean_temp => doc.css("table.weatherhistory_results tr.weatherhistory_results_datavalue td p").children[3].text,
         :max_temp => doc.css("table.weatherhistory_results tr.weatherhistory_results_datavalue td p").children[6].text,
-        :temp_units => doc.css("table.weatherhistory_results tr.weatherhistory_results_datavalue td p").children[8].text,
+        :temp_units => doc.css("table.weatherhistory_results tr.weatherhistory_results_datavalue td p").children[2].text,
         :precipitation => doc.css("table.weatherhistory_results tr.weatherhistory_results_datavalue")[5].children.children.last.text
       }
-binding.pry
       data_attributes.each {|key, value| self.send(("#{key}="), value)}
       self.color = get_color
       convert_temp
@@ -56,19 +55,14 @@ binding.pry
   end
 
   def convert_temp
-    if self.temp_units == "°C"
+    if self.temp_units == "°C" && self.max_temp != "No data."
       self.max_temp = ((self.max_temp.to_f * 1.8) + 32).round
       self.min_temp = ((self.min_temp.to_f * 1.8) + 32).round
       self.min_temp = ((self.min_temp.to_f * 1.8) + 32).round
       self.temp_units = "°F"
+    elsif self.max_temp == "No data."
+      self.temp_units = ""
+      self.color = "No data."
     end
   end
 end
-
-# :max_temp => doc.css("table.weatherhistory_results td p span.value").children[2].text.to_f,
-# :min_temp => doc.css("table.weatherhistory_results td p span.value").children[0].text.to_f,
-# :mean_temp => doc.css("table.weatherhistory_results td p span.value").children[1].text.to_f,
-# :temp_units => doc.css("table.weatherhistory_results td p span.units").children[2].text,
-# # :max_temp => doc.css("table.weatherhistory_results tr.weatherhistory_results_datavalue td p span")[4].children.text,
-# :min_temp => doc.css("table.weatherhistory_results tr.weatherhistory_results_datavalue td p span")[0].children.text,
-# :mean_temp => doc.css("table.weatherhistory_results tr.weatherhistory_results_datavalue td p span")[2].children.text,

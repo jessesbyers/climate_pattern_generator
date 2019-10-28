@@ -32,7 +32,7 @@ class ClimatePatternGenerator::CLI
     ClimatePatternGenerator::Weather.all.each.with_index(1) do |day, i|
       if input == i
         puts ""
-        puts "        Here is your daily weather snapshot"
+        puts "        Here is your daily temperature snapshot"
         puts ""
         puts "        DATE:               #{day.date}"
         puts "        LOCATION:           #{day.location_name}"
@@ -42,9 +42,9 @@ class ClimatePatternGenerator::CLI
         puts "    MINIMUM TEMPERATURE:    #{day.min_temp} #{day.temp_units}"
         puts "    MEAN TEMPERATURE:       #{day.mean_temp} #{day.temp_units}"
         puts ""
-        puts "    TOTAL PRECIPITATION:    #{day.precipitation} #{day.precip_units}"
         puts ""
-        puts "    DATA SOURCE:            The Old Farmer's Almanac"
+        puts "    PRECIPITATION:          #{day.precipitation}"
+        puts "        DATA SOURCE:        The Old Farmer's Almanac"
         puts "                            #{day.url}"
         puts ""
       end
@@ -77,7 +77,7 @@ class ClimatePatternGenerator::CLI
     puts ""
     puts "What would you like to do?"
     puts ""
-    puts "  V. VIEW detailed daily weather information"
+    puts "  V. VIEW detailed daily temperature information"
     puts "  R. RE-PRINT full pattern"
     puts "  S. SEARCH for a new year and zip code"
     puts ""
@@ -174,7 +174,7 @@ class ClimatePatternGenerator::CLI
         else
           temp_spacer = ""
         end
-        puts "    ________   #{i}.       #{day.date}     #{temp_spacer}#{day.max_temp.to_i} #{day.temp_units}              #{day.color}"
+        puts "    ________   #{i}.       #{day.date}     #{temp_spacer}#{day.max_temp.to_i} #{day.temp_units}             #{day.color}"
       end
     end
     puts ""
@@ -207,7 +207,7 @@ class ClimatePatternGenerator::CLI
         else
           temp_spacer = ""
         end
-        puts "    ________   #{row_spacer}#{i}.     #{day.date}       #{temp_spacer}#{day.max_temp.to_i} #{day.temp_units}              #{day.color}"
+        puts "    ________   #{row_spacer}#{i}.     #{day.date}       #{temp_spacer}#{day.max_temp.to_i} #{day.temp_units}             #{day.color}"
       end
     end
     puts ""

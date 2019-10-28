@@ -1,7 +1,7 @@
 class ClimatePatternGenerator::Weather
-  attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :precipitation, :next_day_url, :color, :location_name, :weather_station, :temp_units, :precip_units
-  @@all = []
+  attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :next_day_url, :color, :location_name, :weather_station, :temp_units, :precipitation
   @@preview_all = []
+  @@all = []
 
   def self.year
     ClimatePatternGenerator::Scraper.clear

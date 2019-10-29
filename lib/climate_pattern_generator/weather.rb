@@ -1,5 +1,5 @@
 class ClimatePatternGenerator::Weather
-  attr_accessor :date, :url, :max_temp, :min_temp, :mean_temp, :next_day_url, :color, :location_name, :weather_station, :temp_units, :precipitation
+  attr_accessor :date, :max_temp, :min_temp, :mean_temp, :color, :location_name, :weather_station, :temp_units, :precipitation
   @@preview_all = []
   @@all = []
 

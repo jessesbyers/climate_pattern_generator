@@ -46,7 +46,7 @@ class ClimatePatternGenerator::CLI
         puts "    PRECIPITATION:          #{day.precipitation}"
         puts ""
         puts "        DATA SOURCE:        The Old Farmer's Almanac"
-        puts "                            #{day.url}"
+        puts "                            https://www.almanac.com/weather/history"
         puts ""
       end
     end

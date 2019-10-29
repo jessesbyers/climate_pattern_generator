@@ -178,7 +178,7 @@ class ClimatePatternGenerator::CLI
         else
           temp_spacer = ""
         end
-        puts "    ________   #{i}.       #{day.date}     #{temp_spacer}#{day.max_temp} #{day.temp_units}             #{day.color}"
+        puts "    ________   #{i}.       #{day.date}     #{temp_spacer}#{day.max_temp.to_f.round} #{day.temp_units}             #{day.color}"
       end
     end
     puts ""
@@ -206,12 +206,12 @@ class ClimatePatternGenerator::CLI
         end
         if day.max_temp.to_f.round.between?(0, 9)
           temp_spacer = "  "
-        elsif day.max_temp.to_f.round.between?(10, 99) || day.max_temp.to_i.between?(-9, -1)
+        elsif day.max_temp.to_f.round.between?(10, 99) || day.max_temp.to_f.round.between?(-9, -1)
           temp_spacer = " "
         else
           temp_spacer = ""
         end
-        puts "    ________   #{row_spacer}#{i}.     #{day.date}       #{temp_spacer}#{day.max_temp} #{day.temp_units}             #{day.color}"
+        puts "    ________   #{row_spacer}#{i}.     #{day.date}       #{temp_spacer}#{day.max_temp.to_f.round} #{day.temp_units}             #{day.color}"
       end
     end
     puts ""

@@ -1,6 +1,6 @@
 class ClimatePatternGenerator::CLI
   attr_accessor :year, :zip
-  @@search_terms = []
+  @@all = []
 
   def call
     welcome
@@ -12,7 +12,7 @@ class ClimatePatternGenerator::CLI
   def get_search_terms
     puts ""
     puts "SEARCH for daily weather data for a valid U.S. zip code, and a year between 1945 and the current year."
-    @@search_terms.clear
+    @@all.clear
     puts ""
     puts "Enter a 5-digit zip code"
     puts ""
@@ -21,7 +21,7 @@ class ClimatePatternGenerator::CLI
     puts "Enter a year"
     puts ""
     self.year = gets.strip
-    @@search_terms << self
+    @@all << self
   end
 
   def choose_day
@@ -154,8 +154,8 @@ class ClimatePatternGenerator::CLI
     puts ""
   end
 
-  def self.search_terms
-    @@search_terms
+  def self.all
+    @@all
   end
 
   def print_preview
@@ -215,5 +215,13 @@ class ClimatePatternGenerator::CLI
       end
     end
     puts ""
+  end
+
+  def self.zip
+    @@all[0].zip
+  end
+
+  def self.year
+    @@all[0].year
   end
 end

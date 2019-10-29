@@ -6,7 +6,7 @@ class ClimatePatternGenerator::Weather
   def self.year
     ClimatePatternGenerator::Scraper.clear
     @@all.clear
-    if Date.leap?(ClimatePatternGenerator::CLI.search_terms[0].year.to_i)
+    if Date.leap?(ClimatePatternGenerator::CLI.year.to_i)
       # 366.times do #for full year
       13.times do #for demo
         @@all << ClimatePatternGenerator::Scraper.new

@@ -114,7 +114,7 @@ class ClimatePatternGenerator::CLI
 
         when "C" || "c"
           puts ""
-          puts "Please wait about 20 minutes while we CREATE your pattern"
+          puts "Please wait while we CREATE your pattern"
           puts ""
           puts "While you are waiting, learn more about the Tempestry Project by watching this video: https://youtu.be/30nG81Fu7yg"
           puts ""

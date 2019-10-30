@@ -33,10 +33,10 @@ Or install it yourself as:
 
 NOTE: The full version of this gem takes approximately 20 minutes to scrape a full year's worth of weather data.
 
-Use the Demo Version (v2) to explore all features of the program with a smaller amount of data.
+Use the Demo Version (demo branch) to explore all features of the program with a smaller amount of data.
     After installation
 
-    $ git checkout v2
+    $ git checkout demo
 
 ## Development
 

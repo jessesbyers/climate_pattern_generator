@@ -15,12 +15,22 @@ class ClimatePatternGenerator::CLI
     @@all.clear
     puts ""
     puts "Enter a 5-digit zip code"
-    puts ""
-    self.zip = gets.strip.to_s[0,5]
+    self.zip = gets.strip
+    if self.zip.size != 5
+      self.zip = 12193
+      puts ""
+      puts "That does not appear to be a valid zip code. Check the preview, or enter new search terms."
+      puts ""
+    end
     puts ""
     puts "Enter a year"
-    puts ""
-    self.year = gets.strip.to_s[0,4]
+    self.year = gets.strip
+    if self.year.size != 4
+      self.year = 1900
+      puts ""
+      puts "That does not appear to be a valid year. Check the preview, or enter new search terms."
+      puts ""
+    end
     @@all << self
   end
 

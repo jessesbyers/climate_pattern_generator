@@ -16,11 +16,11 @@ class ClimatePatternGenerator::CLI
     puts ""
     puts "Enter a 5-digit zip code"
     puts ""
-    self.zip = gets.strip
+    self.zip = gets.strip.to_s[0,5]
     puts ""
     puts "Enter a year"
     puts ""
-    self.year = gets.strip
+    self.year = gets.strip.to_s[0,4]
     @@all << self
   end
 

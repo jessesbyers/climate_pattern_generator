@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 
 require './lib/climate_pattern_generator'
-# require "bundler/setup"
-# require "climate_pattern_generator"
 
 color_chart = [
   ["Currant", 121, 1000],

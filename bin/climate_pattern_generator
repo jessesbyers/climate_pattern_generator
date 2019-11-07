@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
-require 'sqlite3'
+
 require './lib/climate_pattern_generator'
+require 'sqlite3'
 require_relative 'sql_runner'
 
 

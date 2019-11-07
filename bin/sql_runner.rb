@@ -1,4 +1,4 @@
-require_relative 'climate_pattern_generator'
+# require_relative './lib/climate_pattern_generator'
 require 'pry'
 
 class SQLRunner
@@ -15,14 +15,14 @@ class SQLRunner
     sql = File.read("lib/insert.sql")
     @db.execute_batch(sql)
   end
+
+  def execute_select_file
+    sql = File.read("lib/select.sql")
+    @db.execute_batch(sql)
+  end
+
+  def execute_data
+    sql = File.read('lib/seed.sql')
+    @db.execute_batch(sql)
+  end
 end
-
-  # def execute_select_file
-  #   sql = File.read("lib/select.sql")
-  #   @db.execute_batch(sql)
-  # end
-
-  # def execute_data
-  #   sql = File.read('lib/seed.sql')
-  #   @db.execute_batch(sql)
-  # end

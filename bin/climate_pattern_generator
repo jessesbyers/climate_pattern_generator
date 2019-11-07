@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 
+require 'sqlite3'
 require './lib/climate_pattern_generator'
-# require "bundler/setup"
-# require "climate_pattern_generator"
+
+DB = {:conn => SQLite3::Database.new("db/color.db")}
 
 color_chart = [
   ["Currant", 121, 1000],

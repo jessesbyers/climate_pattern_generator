@@ -2,8 +2,16 @@
 
 require 'sqlite3'
 require './lib/climate_pattern_generator'
+require_relative 'sql_runner'
 
-DB = {:conn => SQLite3::Database.new("climate_pattern_generator/db/colors.db")}
+
+# require_relative 'climate_pattern_generator'
+# DB = {:conn => SQLite3::Database.new("climate_pattern_generator/db/colors.db")}
+
+db = SQLite3::Database.new('../db/colors.db')
+sql_runner = SQLRunner.new(db)
+
+sql_runner.execute_sql_file
 
 color_chart = [
   ["Currant", 121, 1000],

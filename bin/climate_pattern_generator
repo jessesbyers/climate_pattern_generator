@@ -1,59 +1,10 @@
 #!/usr/bin/env ruby
 
-
 require './lib/climate_pattern_generator'
 require 'sqlite3'
-require_relative 'sql_runner'
 
+DB = {:conn => SQLite3::Database.new('./lib/climate_pattern_generator/colors.db')}
 
-# require_relative 'climate_pattern_generator'
-# DB = {:conn => SQLite3::Database.new("climate_pattern_generator/db/colors.db")}
-
-db = SQLite3::Database.new('../db/colors.db')
-sql_runner = SQLRunner.new(db)
-
-sql_runner.execute_sql_file
-
-color_chart = [
-  ["Currant", 121, 1000],
-  ["Garnet", 116, 120],
-  ["Rooibos", 111, 115],
-  ["Hollyberry", 106, 110],
-  ["Firecracker", 101, 105],
-  ["Cranberry", 96, 100],
-  ["Red", 91, 95],
-  ["Victorian", 86, 90],
-  ["Papaya", 81, 85],
-  ["Orange", 76, 80],
-  ["Conch", 71, 75],
-  ["Caution", 66, 70],
-  ["Semolina", 61, 65],
-  ["Creme Brulee", 56, 60],
-  ["Green Tea", 51, 55],
-  ["Peapod", 46, 50],
-  ["Grass", 41, 45],
-  ["Everglade", 36, 40],
-  ["Tranquil", 31, 35],
-  ["Calypso", 26, 30],
-  ["Whirlpool", 21, 25],
-  ["Baltic", 16, 20],
-  ["Fjord", 11, 15],
-  ["Ciel", 6, 10],
-  ["Celestial", 1, 5],
-  ["Sapphire", -4, 0],
-  ["Solstice", -9, -5],
-  ["Lullaby", -14, -10],
-  ["Amethyst", -19, -15],
-  ["Indigo", -24, -20],
-  ["Blackberry", -29, -25],
-  ["Coal", -1000, -30]
-]
-
-color_chart.each do |color_array|
-  color = color_array[0]
-  min = color_array[1]
-  max = color_array[2]
-  ClimatePatternGenerator::Color.new(color, min, max)
-end
+ClimatePatternGenerator::Color.all
 
 ClimatePatternGenerator::CLI.new.call

@@ -1,13 +1,5 @@
 class ClimatePatternGenerator::Color
-  attr_accessor :color, :min, :max
-  @@all = []
-
-  def initialize(color, min, max)
-    @color = color
-    @min = min
-    @max = max
-    # @@all << self
-  end
+  attr_accessor :id, :color, :min, :max
 
   def self.new_from_db(row)
     new_color = self.new
@@ -19,6 +11,26 @@ class ClimatePatternGenerator::Color
   end
 
   def self.all
-    @@all
+    sql = <<-SQL
+      SELECT *
+        FROM colors
+    SQL
+
+    DB[:conn].execute(sql).map do |row|
+     self.new_from_db(row)
+    end
+   end
   end
-end
+
+  # def self.find_by_color(color)
+  #   sql = <<-SQL
+  #     SELECT *
+  #     FROM colors
+  #     WHERE color = ?
+  #     LIMIT 1
+  #   SQL
+  #
+  #   DB[:conn].execute(sql, name).map do |row|
+  #     self.new_from_db(row)
+  #   end.first
+  # end

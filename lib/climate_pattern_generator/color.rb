@@ -14,4 +14,18 @@ class ClimatePatternGenerator::Color
   def self.all
     @@all
   end
+
+  def self.create_table
+  sql =  <<-SQL
+    CREATE TABLE IF NOT EXISTS colors (
+      id INTEGER PRIMARY KEY,
+      color TEXT,
+      min INTEGER,
+      max INTEGER
+      )
+      SQL
+  DB[:conn].execute(sql)
+end
+end
+
 end

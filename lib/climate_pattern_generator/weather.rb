@@ -7,14 +7,16 @@ class ClimatePatternGenerator::Weather
     ClimatePatternGenerator::Scraper.clear
     @@all.clear
     if Date.leap?(ClimatePatternGenerator::CLI.year.to_i)
-      366.times do
+      # 366.times do
+      13.times do
         @@all << ClimatePatternGenerator::Scraper.new
-        sleep 4
+        # sleep 4
       end
     else
-      365.times do
+      12.times do
+      # 365.times do
         @@all << ClimatePatternGenerator::Scraper.new
-        sleep 4
+        # sleep 4
       end
     end
   end

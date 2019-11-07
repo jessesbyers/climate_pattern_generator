@@ -5,6 +5,8 @@ require './lib/climate_pattern_generator'
 
 DB = {:conn => SQLite3::Database.new("db/color.db")}
 
+ClimatePatternGenerator::Color.create_table
+
 color_chart = [
   ["Currant", 121, 1000],
   ["Garnet", 116, 120],
@@ -44,7 +46,7 @@ color_chart.each do |color_array|
   color = color_array[0]
   min = color_array[1]
   max = color_array[2]
-  ClimatePatternGenerator::Color.new(color, min, max)
+  ClimatePatternGenerator::Color.create(color, min, max)
 end
 
 ClimatePatternGenerator::CLI.new.call

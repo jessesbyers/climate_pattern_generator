@@ -29,22 +29,19 @@ class ClimatePatternGenerator::Color
 
   def save
    sql = <<-SQL
-     INSERT INTO colors (id, color, min, max)
-     VALUES (?, ?, ?, ?)
+     INSERT INTO colors (color, min, max)
+     VALUES (?, ?, ?)
    SQL
 
    DB[:conn].execute(sql, self.color, self.min, self.max)
 
-   @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
+   @id = DB[:conn].execute("SELECT last_insert_rowid() FROM colors")[0][0]
  end
 
  def self.create(color, min, max)
-   color = Color.new(color, min, max)
+   color = self.new(color, min, max, id=nil)
    color.save
+   @@all << color
    color
  end
-
-
-
-
 end

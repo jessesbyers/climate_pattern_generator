@@ -12,31 +12,33 @@ See The Tempestry Project for examples and more details:
 Weather data derived from the National Climatic Data Center, scraped via the Old Farmer's Almanac:              
     https://www.almanac.com/weather/history
 
+Read more in my Blog Posts:
+    To Scrape, or Not To Scrape: https://dev.to/jessesbyers/to-scrape-or-not-to-scrape-3cn8
+
+    Climate Pattern Generator: Testing and Lessons Learned: https://dev.to/jessesbyers/climate-pattern-generator-testing-and-lessons-learned-5d0p
+
+
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Clone the repository and open it using your local IDE:
+    $ git clone https://github.com/jessesbyers/climate_pattern_generator.git
 
-```ruby
-gem 'climate_pattern_generator'
-```
+Navigate into the application folder:
+    $ cd climate_pattern_generator
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install climate_pattern_generator
+Bundle Install
+    $ bundle install
 
 ## Usage
 
-NOTE: The full version of this gem takes approximately 20 minutes to scrape a full year's worth of weather data.
+NOTE: The full version of this apllication takes approximately 20 minutes to scrape a full year's worth of weather data.
 
 Use the Demo Version (demo branch) to explore all features of the program with a smaller amount of data.
-    After installation
-
     $ git checkout demo
+
+To run the program:
+    $ ./bin/climate_pattern_generator
 
 ## Development
 
